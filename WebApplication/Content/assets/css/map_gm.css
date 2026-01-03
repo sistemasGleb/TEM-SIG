@@ -1,0 +1,48 @@
+.gm-style .gm-style-iw-a {
+    position: absolute;
+    width: 9999px;
+    height: 0;
+}
+
+.gm-style .gm-style-iw-t {
+    position: absolute;
+    width: 100%;
+}
+
+element.style {
+    padding-inline-end: 0px;
+    padding-bottom: 0px;
+    padding-top: 0px;
+    max-width: 445px;
+    max-height: 238px;
+    min-width: 228px;
+}
+
+.gm-style .gm-style-iw-c {
+    position: absolute;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    overflow: hidden;
+    top: 0;
+    left: 0;
+    -webkit-transform: translate3d(-50%, -100%, 0);
+    transform: translate3d(-50%, -100%, 0);
+    background-color: white;
+    border-radius: 8px;
+    padding: 12px;
+    -webkit-box-shadow: 0 2px 7px 1px rgba(0, 0, 0, .3);
+    box-shadow: 0 2px 7px 1px rgba(0, 0, 0, .3);
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+    flex-direction: column;
+}
+
+.gm-style .gm-style-iw {
+    font-weight: 300;
+    font-size: 13px;
+    overflow: hidden;
+}

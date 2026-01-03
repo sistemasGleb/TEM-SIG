@@ -1,0 +1,78 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link rel="stylesheet" type="text/css" href="~/Content/assets/css/demo.css" />
+<link rel="stylesheet" type="text/css" href="~/Content/assets/css/map.css" />
+
+<script>
+    (g => { var h, a, k, p = "The Google Maps JavaScript API", c = "google", l = "importLibrary", q = "__ib__", m = document, b = window; b = b[c] || (b[c] = {}); var d = b.maps || (b.maps = {}), r = new Set, e = new URLSearchParams, u = () => h || (h = new Promise(async (f, n) => { await (a = m.createElement("script")); e.set("libraries", [...r] + ""); for (k in g) e.set(k.replace(/[A-Z]/g, t => "_" + t[0].toLowerCase()), g[k]); e.set("callback", c + ".maps." + q); a.src = `https://maps.${c}apis.com/maps/api/js?` + e; d[q] = f; a.onerror = () => h = n(Error(p + " could not load.")); a.nonce = m.querySelector("script[nonce]")?.nonce || ""; m.head.append(a) })); d[l] ? console.warn(p + " only loads once. Ignoring:", g) : d[l] = (f, ...n) => r.add(f) && u().then(() => d[l](f, ...n)) })
+        ({ key: "AIzaSyAh0X0mgxWhWkvIRi0yY_3cnLfVZorpmFo", v: "weekly" });</script>
+
+
+<div class="content-wrapper">
+    <div class="content" style="padding: 0rem 0.65rem 0rem 0.65rem;">
+
+        <!-- Hidden Fields -->
+        <input type="hidden" id="listar_menu" value="@Url.Action("ListarMenu", "Maps", new { Area = "Mapa" })" />
+        <input type="hidden" id="hddn_getMarkers" value="@Url.Action("ListarJSON_Markers","Maps", new { Area = "Mapa" })" />
+        <input type="hidden" id="hddn_getMarkersDetail" value="@Url.Action("ListarJSON_MarkerDetail","Maps", new { Area = "Mapa" })" />
+        <input type="hidden" id="hddn_Update_User_Preferences" value="@Url.Action("EditJSON_User_Preferences","Maps", new { Area = "Mapa" })" /> 
+
+        <input type="hidden" id="per_cod" value="" />
+        <input type="hidden" id="menus" value="" />
+        <input type="hidden" id="nro_menus" value="0" />
+        <input type="hidden" id="selected_key" />
+
+        <!-- Main charts -->
+        <div class="row">
+            <div class="col-xl-12 p-0">
+
+                <!-- Alert -->
+                <div id="div_map_alert" class="alert alert-warning alert-styled-left alert-dismissible m-1 d-none">
+                    @TempData["selCode"]
+                    <span class="font-weight-bold">Atención!</span> <span id="div_map_alert_text"> </span>
+                </div>
+
+                <!-- Custom template | don't include it in your project! -->
+                <div class="custom-template">
+                    @Html.Action("Menu", "Maps", new { Area = "Mapa" })
+                    <div class="custom-toggle" title="Contraer panel lateral">
+                        <i class="icon-hammer-wrench"></i>
+                    </div>
+                </div>
+                <!-- End Custom template -->
+                <!-- Basic map -->
+                <div class="map-container" id="map_basic" ></div>
+                <!-- /basic map -->
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@Html.Partial("_CardinalPoints")
+@Html.Partial("_Modal_Detalle")
+ 
+<script src="~/Content/global_assets/js/plugins/ui/moment/moment.min.js"></script>
+<script src="~/Content/global_assets/js/plugins/ui/moment/moment_locales.min.js"></script>
+<script src="~/Content/global_assets/js/plugins/forms/selects/select2.min.js"></script>
+<script src="~/Content/global_assets/js/plugins/loaders/blockui.min.js"></script>
+<script src="~/Content/global_assets/js/plugins/extensions/jquery_ui/core.min.js"></script>
+<script src="~/Content/global_assets/js/plugins/extensions/jquery_ui/effects.min.js"></script>
+<script src="~/Content/global_assets/js/plugins/extensions/jquery_ui/interactions.min.js"></script>
+<script src="~/Content/global_assets/js/plugins/extensions/cookie.js"></script>
+<script src="~/Content/global_assets/js/plugins/forms/styling/switchery.min.js"></script>
+<script src="~/Content/global_assets/js/plugins/forms/styling/uniform.min.js"></script>
+<script src="~/Content/global_assets/js/plugins/trees/fancytree_all.min.js"></script>
+<script src="~/Content/global_assets/js/plugins/trees/fancytree_childcounter.js"></script>
+<script src="~/Content/global_assets/js/plugins/notifications/sweet_alert.min.js"></script>
+<script src="~/Content/global_assets/js/plugins/menu/setting-demo.js"></script> 
+<script src="~/Content/global_assets/js/plugins/tables/datatables/datatables.min.js"></script>
+<script src="~/Content/global_assets/js/plugins/tables/datatables/extensions/buttons.min.js"></script>
+<script src="~/Content/global_assets/js/plugins/tables/datatables/extensions/fixed_header.min.js"></script>
+<script src="~/Content/global_assets/js/plugins/tables/datatables/extensions/responsive.min.js"></script>
+
+<script src="~/Content/global_assets/js/pages/menu/menu.js?v=@ViewContext.Controller.GetType().Assembly.GetName().Version"></script>
+<script src="~/Content/global_assets/js/pages/mapa/map.js?v=@ViewContext.Controller.GetType().Assembly.GetName().Version"></script>
+<script src="~/Content/global_assets/js/pages/mapa/marker.js?v=@ViewContext.Controller.GetType().Assembly.GetName().Version"></script>

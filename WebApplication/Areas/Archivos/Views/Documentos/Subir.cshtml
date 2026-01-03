@@ -1,0 +1,111 @@
+﻿@{
+    ViewData["Title"] = "Subir Archivo";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model BusinessEntity.FormModels.Documento
+
+<div class="content-wrapper">
+    <div class="content">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header header-elements-inline">
+                        <h5 class="card-title">@ViewData["Title"]</h5>
+
+                    </div>
+                    <div class="card-body">
+                        <input type="hidden" id="hiddenUploadFile" value="@Url.Action("CargarArchivoJSON","Documentos", new {Area ="Archivos"})" />
+                        <input type="hidden" id="hiddenAllowedFileExtension" value="@ViewData["Formatos"]" />
+                        <input type="hidden" id="hiddenMaxFileSize" value="@Model.maxFileSize" />
+                        <input type="hidden" id="hiddenListFile" value="@Url.Action("Listar", "Documentos", new { Area = "Archivos" })" />
+
+
+                        @Html.Partial("_Mensaje")
+
+                        <!-- CARGADO -->
+                        <div class="alert alert-success alert-styled-left alert-arrow-left alert-dismissible m-1 d-none" id="alert_upload_reclamos">
+
+                        </div>
+
+
+                        <form asp-action="agregar" asp-controller="documentos" method="post" class="form-validate">
+                            <div class="form-group row">
+                                <label class="col-md-3 col-form-label">Nombre Biblioteca</label>
+                                <div class="col-md-6">
+                                    @Html.DropDownListFor(m => m.cod_categoria, (IEnumerable<SelectListItem>)Model.categorias, new { @class = "form-control form-control text-uppercase select2" })
+                                </div>
+                            </div>
+
+
+                            <div class="form-group row">
+                                <label class="col-md-3 col-form-label">Título</label>
+                                <div class="col-md-6">
+                                    @Html.TextBoxFor(model => model.doc_titulo, new { @class = "form-control text-uppercase", @placeholder = "Título...", @autocomplete = "off", @maxlength = "50" })
+                                </div>
+                            </div>
+
+
+                            <div class="form-group row">
+                                <label class="col-md-3 col-form-label">Descripción</label>
+                                <div class="col-md-6">
+                                    @Html.TextAreaFor(m => m.doc_descripcion, new { @rows = "3", @cols = "5", @class = "form-control text-uppercase", @placeholder = "Escriba su descripción acá...", @autocomplete = "off" })
+                                </div>
+                            </div>
+
+                            <!--FORMULARIO -->
+                            <div class="form-group row">
+                                <label class="col-md-2 col-form-label font-weight-semibold">Seleccione <span class="text-nowrap">Archivo :</span></label>
+                                <div class="col-md-8">
+                                    <input type="file" id="file_mot_adj" name="file_mot_adj" value="" class="file-input form-control-sm" data-fouc>
+                                    <span class="form-text text-muted">Tamaño máximo de subida es de @Model.maxFileSizeIso</span>
+                                    <span class="form-text text-muted">
+                                        En este módulo, solo se permiten las extensiones
+
+                                        @if (Model.AllowedFileExtensions != null)
+                                        {
+                                            foreach (var item in Model.AllowedFileExtensions)
+                                            {
+                                                <code>@item.Value</code>
+                                            }
+                                        }
+                                    </span>
+                                </div>
+                            </div>
+
+
+
+
+                            <div class="text-right">
+                                <a type="button" class="btn btn-light mr-3" href="@Url.Action("Listar", "Documentos", new {Area = "Archivos"})" id="btn_upload_back"><i class="icon-previous2 mr-2"></i> Volver</a>
+                                <button type="submit" class="btn btn-primary" style="background-color: #064A98">Guardar <i class="icon-floppy-disk ml-1"></i></button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .datatable-header {
+        padding: 0;
+    }
+
+    .file-preview-thumbnails {
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+        position: relative;
+        overflow: auto;
+    }
+</style>
+
+<script src="~/Content/global_assets/js/plugins/forms/styling/uniform.min.js"></script>
+<script src="~/Content/global_assets/js/plugins/forms/validation/validate.min.js"></script>
+<script src="~/Content/global_assets/js/plugins/uploaders/fileinput/fileinput.min.js"></script>
+<script src="~/Content/global_assets/js/plugins/uploaders/fileinput/locale/es.js"></script>
+<script src="~/Content/global_assets/js/plugins/forms/selects/select2.min.js"></script>
+<script src="~/Content/global_assets/js/pages/archivos/documentos/subir.js?v=@ViewContext.Controller.GetType().Assembly.GetName().Version"></script>

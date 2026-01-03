@@ -1,0 +1,105 @@
+﻿@model BusinessEntity.FormModels.FormPlanDeMantencion.PlanDeMantencion
+
+<div class="col-12">
+    <!-- Basic responsive table -->
+    <div class="table-responsive">
+        <table class="table table-sm table-bordered" id="tbl_plan_conservacion">
+            <thead>
+                <tr>
+                    <th>Código</th>
+                    <th class="text-nowrap">Nombre de la Operación</th>
+                    <th>Unidad</th>
+                    @*<th>Año</th>*@
+                    <th>Ene</th>
+                    <th>Feb</th>
+                    <th>Mar</th>
+                    <th>Abr</th>
+                    <th>May</th>
+                    <th>Jun</th>
+                    <th>Jul</th>
+                    <th>Ago</th>
+                    <th>Sep</th>
+                    <th>Oct</th>
+                    <th>Nov</th>
+                    <th>Dic</th>
+                    <th class="font-weight-bolder font-size-sm bg-light">Total</th>
+                    <th>Frecuencia</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.allPlanDeMantencionList.Rows.Count > 0)
+                {
+                    for (int i = 0; i < Model.allPlanDeMantencionList.Rows.Count; i++)
+                    {
+                        var dararowGuid = Model.allPlanDeMantencionList.Rows[i][0].ToString();
+                        var datarowCodigo = Model.allPlanDeMantencionList.Rows[i][1].ToString();
+                        var datarowNombre = Model.allPlanDeMantencionList.Rows[i][2].ToString();
+                        var datarowUnidad = Model.allPlanDeMantencionList.Rows[i][3].ToString();
+                        var datarowFrecuencia = Model.allPlanDeMantencionList.Rows[i][17].ToString();
+
+                        if ((string)datarowCodigo == "-" || (String.IsNullOrEmpty(datarowUnidad) && String.IsNullOrEmpty(datarowFrecuencia)))
+                        {
+                            <tr>
+                                <td class="py-1 border-right-0"></td>
+                                <td class="py-1 font-weight-bolder font-size-sm border-left-0" colspan="17">@datarowNombre</td>
+                            </tr>
+                        }
+                        else
+                        {
+                            <tr>
+                                @for (int X = 0; X < Model.allPlanDeMantencionList.Columns.Count; X++)
+                                {
+                                    var strColumnName = Model.allPlanDeMantencionList.Columns[X].ColumnName;
+                                    var dataRowCol = "";
+                                    var dataRowGuid = "";
+                                    var IsNumeric = false;
+
+                                    if (strColumnName == "Enero" || strColumnName == "Febrero" || strColumnName == "Marzo" || strColumnName == "Abril" || strColumnName == "Mayo"
+                                        || strColumnName == "Junio" || strColumnName == "Julio" || strColumnName == "Agosto" || strColumnName == "Septiembre" || strColumnName == "Octubre"
+                                         || strColumnName == "Noviembre" || strColumnName == "Diciembre" || strColumnName == "Total")
+                                    {
+                                        IsNumeric = true;
+                                    }
+
+
+                                    if (strColumnName != "Guid")
+                                    {
+                                        dataRowGuid = Model.allPlanDeMantencionList.Rows[i][0].ToString();
+                                        dataRowCol = Model.allPlanDeMantencionList.Rows[i][X].ToString();
+
+                                        if (strColumnName == "Codigo")
+                                        {
+                                            <td class="py-0 text-nowrap @(IsNumeric ? "text-right" : "text-left") @(strColumnName == "Total"?"font-weight-bolder font-size-sm bg-light":"")">
+                                                @dataRowCol
+                                            </td>
+                                        }
+                                        else
+                                        {
+                                            <td class="py-0 text-nowrap @(IsNumeric ? "text-right" : "text-left") @(strColumnName == "Total"?"font-weight-bolder font-size-sm bg-light":"")">
+                                                @(IsNumeric ? (dataRowCol=="-"? dataRowCol : (Int32.Parse(dataRowCol).ToString("N0"))).Replace(",",".") :dataRowCol)
+                                            </td>
+                                        }
+                                    }
+                                }
+                            </tr>
+                        }
+                    }
+
+                    <tr>
+                        <td class="pb-0 pt-2 border-0" colspan="15">(*) Inspección Mensual /Trimestral: Inspección para detectar necesidades de reparación</td>
+                    </tr>
+                    <tr>
+                        <td class="py-0 border-0" colspan="15">(**)  Según Necesidad: Prodecer cuando ocurra o se detecte el evento </td>
+                    </tr>
+                    <tr>
+                        <td class="py-0 border-0" colspan="15">Las inspecciones para definir una acción, son parte de las Operaciones de Conservación Rutinaria (MC V7 7.004)</td>
+                    </tr>
+                    <tr>
+                        <td class="pb-2 pt-0 border-0" colspan="15">'(***) Tunel Oriente</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+@Html.Hidden("some_property", Model.observations, new { @id = "some_property" })

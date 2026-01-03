@@ -1,0 +1,56 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model BusinessEntity.FormModels.FormElementos
+
+<div class="content-wrapper" id="main-modulo">
+    <div class="content">
+
+        @Html.Partial("_Mensaje")
+
+        <!-- CARD -->
+        <div class="card">
+            <div class="card-header header-elements-inline py-2">
+                <h5 class="card-title"><i class="icon-filter3 mr-2"></i>Filtros de Búsqueda</h5>
+            </div>
+            <div class="card-body pb-2">
+                <form id="form_login" class="form-validate" method="get" action="@Url.Action("Listar", "Elementos")">
+                    @Html.AntiForgeryToken()
+
+                    <!-- FILA 1 -->
+                    <div class="row">
+                        <div class="col-xl-8 col-lg-8 col-md-6 col-sm-6">
+
+                            <div class="form-group row">
+                                <label class="col-lg-3 col-form-label">Elemento:</label>
+                                <div class="col-lg-9">
+                                    @Html.DropDownListFor(model => Model.id_tipo_elemento, (IEnumerable<SelectListItem>)Model.elementList, new { @class = "form-control select2" })
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 my-auto">
+                            <div class="row d-flex justify-content-center align-items-center">
+
+                                <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6">
+                                </div>
+                                <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6">
+                                    <button id="btn-exportar" type="submit" class="btn bg-teal btn-labeled btn-labeled-left btn-sm m-1 btn-block"><b><i class="icon-circle-right2 mr-2"></i></b>Seleccionar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- /.CARD -->
+    </div>
+</div>
+
+<script src="~/Content/global_assets/js/plugins/ui/moment/moment.min.js"></script>
+<script src="~/Content/global_assets/js/plugins/forms/selects/select2.min.js"></script>
+<script src="~/Content/global_assets/js/plugins/forms/validation/validate.min.js"></script>
+<script src="~/Content/global_assets/js/pages/configuracion/elementos/index.js?v=@ViewContext.Controller.GetType().Assembly.GetName().Version"></script>

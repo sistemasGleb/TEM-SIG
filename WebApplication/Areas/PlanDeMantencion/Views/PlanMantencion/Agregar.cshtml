@@ -1,0 +1,124 @@
+﻿@{
+    ViewData["Title"] = "Ingresar Nueva Mantención";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model BusinessEntity.FormModels.FormPlanDeMantencion.PlanFiltros
+
+<div class="content-wrapper">
+    <div class="content">
+        <div class="row">
+
+            <!-- HIDDEN FIELDS -->
+            <input type="hidden" id="hddn_BuscarActivityByCode" name="hddn_BuscarActivityByCode" value="@Url.Action("BuscarActivityByCode", "PlanMantencion", null)" />
+            <input type="hidden" id="hddn_ingresarNuevaMantencion" value="@Url.Action("Ingresar", "PlanMantencion", null)" />
+            <input type="hidden" id="hddn_BuscarElementoByType" name="hddn_BuscarElementoByType" value="@Url.Action("BuscarElementoByType", "PlanMantencion", null)" />
+            @Html.HiddenFor(m => m.unit)
+
+            <!--- formulario -->
+            <div class="col-md-10">
+                <div class="card">
+                    <div class="card-header header-elements-inline">
+                        <h5 class="card-title"><i class="icon-add mr-2"></i>Ingresar Nueva Mantención</h5>
+
+                    </div>
+                    <div class="card-body">
+                        @Html.Partial("_Mensaje")
+
+                        <form method="post" class="form-validate-agregar">
+
+                            <!-- LINEA 1 -->
+                            <div class="form-group row">
+                                <label class="col-md-2 col-form-label font-weight-semibold">Tipo Mantención:</label>
+                                <div class="col-md-4">
+                                    @Html.DropDownListFor(m => m.MaintenanceTypeSelected, (IEnumerable<SelectListItem>)Model.allMaintenanceType, new { @class = "form-control form-control-sm select2 text-uppercase" })
+                                </div>
+                                <label class="col-md-2 col-form-label font-weight-semibold">Actividad:</label>
+                                <div class="col-md-4">
+                                    @Html.DropDownListFor(m => m.ActivitySelected, (IEnumerable<SelectListItem>)Model.allActivity, new { @class = "form-control form-control-sm select2 text-uppercase" })
+                                </div>
+                            </div>
+
+                            <!-- LINEA 2 -->
+                            <div class="form-group row">
+                                <label class="col-md-2 col-form-label font-weight-semibold">Tipo Elemento:</label>
+                                <div class="col-md-4">
+                                    @Html.DropDownListFor(m => m.ElementTypeSelected, (IEnumerable<SelectListItem>)Model.allElementType, new { @class = "form-control form-control-sm select2 text-uppercase" })
+                                </div>
+                                <label class="col-md-2 col-form-label font-weight-semibold">Código Elemento MOP:</label>
+                                <div class="col-md-4">
+                                    @Html.DropDownListFor(m => m.ElementCodeSelected, (IEnumerable<SelectListItem>)Model.allElementCode, new { @class = "form-control form-control-sm select2 text-uppercase" })
+                                </div>
+                            </div>
+
+                            <!-- LINEA 3 -->
+                            <div class="form-group row">
+                                <label class="col-md-2 col-form-label font-weight-semibold">Fecha Mantención:</label>
+                                <div class="col-md-4">
+                                    <div class="input-group">
+                                        <span class="input-group-prepend">
+                                            <span class="input-group-text"><i class="icon-calendar3"></i></span>
+                                        </span>
+                                        @Html.TextBoxFor(m => m.MaintenanceDate, new { @class = "form-control form-control-md daterange-single-add", @maxlength = "10", @autocomplete = "off" })
+                                    </div>
+                                </div>
+                                <label class="col-md-2 col-form-label font-weight-semibold">Responsable:</label>
+                                <div class="col-md-4">
+                                    @Html.DropDownListFor(m => m.ResponsibleSelected, (IEnumerable<SelectListItem>)Model.allResponsible, new { @class = "form-control form-control-sm select2 text-uppercase" })
+                                </div>
+                            </div>
+
+                            <!-- LINEA 4 -->
+                            <div class="form-group row">
+                                <label class="col-md-2 col-form-label font-weight-semibold">Cantidad:</label>
+                                <div class="col-md-4">
+                                    <div class="input-group input-group-sm">
+                                        @Html.TextBoxFor(model => model.quantity, new { @class = "form-control text-uppercase form-control-sm text-right", @onkeypress = "return isNumberKey(event);", @autocomplete = "off", @maxlength = "6" })
+                                        <span class="input-group-prepend">
+                                            <span class="input-group-text text-capitalize" id="quantity_label">Mt2</span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- LINEA 5 -->
+                            <fieldset>
+                                <legend class="font-weight-semibold text-uppercase font-size-sm">
+                                    <i class="icon-clipboard6 mr-2"></i>
+                                    Observación
+                                    <a class="float-right text-default" data-toggle="collapse" data-target="#demo2">
+                                        <i class="icon-circle-down2"></i>
+                                    </a>
+                                </legend>
+
+                                <div class="collapse show" id="demo2">
+                                    <div class="form-group">
+                                        @Html.TextAreaFor(m => m.observations, new { @class = "form-control text-uppercase", @placeholder = "Escriba su mensaje acá...", @rows = "4", @maxlength = "1000" })
+                                        <p class=" text-muted text-right">(máximo 1000 carácteres)</p>
+                                    </div>
+
+                                </div>
+                            </fieldset>
+
+                            <div class="text-right">
+                                <button type="submit" class="btn btn-primary" style="background-color: #064A98">Guardar <i class="icon-floppy-disk ml-1"></i></button>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!--- /.fromulario -->
+
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/Content/global_assets/js/plugins/ui/moment/moment.min.js"></script>
+    <script src="~/Content/global_assets/js/plugins/pickers/daterangepicker.js"></script>
+    <script src="~/Content/global_assets/js/plugins/forms/styling/uniform.min.js"></script>
+    <script src="~/Content/global_assets/js/plugins/forms/selects/select2.min.js"></script>
+    <script src="~/Content/global_assets/js/plugins/forms/validation/validate.min.js"></script>
+    <script src="~/Content/global_assets/js/pages/planmantencion/agregar.js?v=@ViewContext.Controller.GetType().Assembly.GetName().Version"></script>
+}

@@ -1,0 +1,96 @@
+﻿
+@{
+    ViewBag.Title = "Administración de Usuarios";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model BusinessEntity.UsuarioBusinessEntity.FormUsuarios
+
+<div class="content-wrapper">
+    <div class="content">
+
+        @Html.Partial("_Mensaje")
+
+        <input type="hidden" id="usuario_agregar" value="@Url.Action("Create","Usuario",null )" />
+        <input type="hidden" id="usuario_eliminar" value="@Url.Action("Delete","Usuario",null )" />
+        <input type="hidden" id="usuario_agregar" value="@Url.Action("Create", "Usuario",new {Area ="Configuracion" } )" />
+
+        <div class="card mb-0">
+            <div class="card-header header-elements-inline" style="border-bottom: 1px solid rgba(0, 0, 0, .125)">
+                <h6 class="card-title">
+                    <i class="icon-users mr-2"></i>Mantenedor De Usuarios
+                </h6>
+            </div>
+
+            <div class="card-body py-0">
+                <div class="table-responsive">
+                    <table class="table table-condensed font-size-xs">
+                        <thead>
+                            <tr>
+                                <th>Usuario</th>
+                                <th>Nombre Usuario</th>
+                                <th>Email</th>
+                                <th>Vigente</th>
+                                <th>Bloqueado</th>
+                                <th>Cargo</th>
+                                <th>Creado Por</th>
+                                <th>Creado El</th>
+                                <th>Modificado Por</th>
+                                <th>Modificado El</th>
+                                <th>Opciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model.listUsuario != null)
+                            {
+                                foreach (var user in Model.listUsuario)
+                                {
+                                    <tr>
+                                        <td class="text-left text-uppercase">@user.usr_lgn</td>
+                                        <td class="text-left text-uppercase">@user.usr_nom_full</td>
+                                        <td class="text-left text-uppercase">@user.usr_mail</td>
+
+                                        @if (!@user.usr_vig)
+                                        {
+                                            <td class="text-center"><span class="list-icons-item text-danger-600"><i class="icon-close2"></i></span></td>
+                                        }
+                                        else
+                                        {
+                                            <td class="text-center"><span class="list-icons-item text-success-600"><i class="icon-checkmark-circle2"></i></span></td>
+                                        }
+
+                                        @if (@user.usr_blq)
+                                        {
+                                            <td class="text-center"><span class="list-icons-item text-danger-600"><i class="icon-lock2"></i></span></td>
+                                        }
+                                        else
+                                        {
+                                            <td class="text-center"><span class="list-icons-item text-success-600"><i class="icon-unlocked2"></i></span></td>
+                                        }
+
+                                        <td class="text-left text-uppercase">@user.usr_car</td>
+                                        <td class="text-left text-uppercase">@user.usr_cre_usr</td>
+                                        <td class="text-center text-uppercase">@user.usr_cre_fec.ToString("dd-MM-yyyy HH:mm")</td>
+                                        <td class="text-left text-uppercase">@user.usr_mod_usr</td>
+                                        <td class="text-center text-uppercase">@user.usr_mod_fec.ToString("dd-MM-yyyy HH:mm")</td>
+                                        <td class="text-center">
+                                            @Html.ActionLink(" ", "Edit", "Usuario", new { strCurrentUser = @user.usr_lgn }, new { @class = "icon-pencil mr-1", @title = "Editar" })
+                                            <a onclick="fncEliminarUsuario(' @user.usr_id','@user.usr_lgn'); return false;" href="#" class="icon-trash text-danger-600" title="Eliminar"></a>
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/Content/global_assets/js/plugins/tables/datatables/datatables.min.js"></script>
+    <script src="~/Content/global_assets/js/plugins/tables/datatables/extensions/buttons.min.js"></script>
+    <script src="~/Content/global_assets/js/plugins/notifications/bootbox.min.js"></script>
+    <script src="~/Content/global_assets/js/pages/configuracion/usuarios/listar.js?v=@ViewContext.Controller.GetType().Assembly.GetName().Version"></script>
+}

@@ -1,0 +1,188 @@
+﻿
+@model BusinessEntity.ParametrosBusinessEntity
+
+<!-- Hidden Fields -->
+<input type="hidden" id="elmento_img_eliminar" value="@Url.Action("DeleteImage", "Elementos",new {Area ="Configuracion" } )" />
+<input type="hidden" id="hiddenUploaImagedFile" value="@Url.Action("AgregarImagen","Elementos", new {Area ="Configuracion"})" />
+
+<fieldset>
+    <legend class="font-weight-semibold text-uppercase font-size-sm">
+        <i class="icon-file-text3 mr-2"></i>
+        INFORNACIÓN GENERAL
+        <a href="#" class="float-right text-default" data-toggle="collapse" data-target="#demo1">
+            <i class="icon-circle-down2"></i>
+        </a>
+    </legend>
+
+    <div class="collapse show" id="demo1">
+        <div class="row">
+
+            <!-- FILA 1 -->
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label class="text-uppercase font-weight-semibold">ID:</label>
+                    @Html.TextBoxFor(m => m.Param_id, new { @class = "form-control text-right text-uppercase row_readonly", @disabled = "disabled" })
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label class="text-uppercase font-weight-semibold">Tipo Elemento:</label>
+                    @Html.TextBoxFor(m => m.Param_tip_ele_nom, new { @class = "form-control text-uppercase text-left row_readonly", @disabled = "disabled" })
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="text-uppercase font-weight-semibold">Nombre Elemento:</label>
+                    @Html.TextBoxFor(m => m.Param_ele_nom, new { @name = @Model.Param_ele_nom, @class = "form-control text-left text-uppercase", @maxlength = "100" })
+                </div>
+            </div>
+
+            <!-- FILA 2-->
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label class="text-uppercase font-weight-semibold">DM Inicio:</label>
+                    @Html.TextBoxFor(m => m.Param_dm_ini, new { @name = @Model.Param_dm_ini, @class = "form-control text-right text-uppercase", @maxlength = "18" })
+                </div>
+            </div>
+
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label class="text-uppercase font-weight-semibold">DM Fin:</label>
+                    @Html.TextBoxFor(m => m.Param_dm_fin, new { @name = @Model.Param_dm_fin, @class = "form-control text-right text-uppercase", @maxlength = "18" })
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label class="text-uppercase font-weight-semibold">Tramo:</label>
+                    @Html.DropDownListFor(m => m.Param_tra_id, (IEnumerable<SelectListItem>)Model.allTramoList, new { @class = "form-control form-control text-uppercase select2" })
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label class="text-uppercase font-weight-semibold">Lado:</label>
+                    @Html.DropDownListFor(m => m.Param_lad, (IEnumerable<SelectListItem>)Model.AllLadoList, new { @class = "form-control form-control text-uppercase select2" })
+                </div>
+            </div>
+
+            <!-- FILA 3-->
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label class="text-uppercase font-weight-semibold">Latitud Inicio:</label>
+                    @Html.TextBoxFor(m => m.Param_crd_lat_ini, new { @name = @Model.Param_crd_lat_ini, @class = "form-control text-right text-uppercase", @maxlength = "20" })
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label class="text-uppercase font-weight-semibold">Longuitud Inicio:</label>
+                    @Html.TextBoxFor(m => m.Param_crd_lon_ini, new { @name = @Model.Param_crd_lon_ini, @class = "form-control text-right text-uppercase", @maxlength = "20" })
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label class="text-uppercase font-weight-semibold">Latitud Fin:</label>
+                    @Html.TextBoxFor(m => m.Param_crd_lat_fin, new { @name = @Model.Param_crd_lat_fin, @class = "form-control text-right text-uppercase", @maxlength = "20" })
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label class="text-uppercase font-weight-semibold">Longuitud Fin:</label>
+                    @Html.TextBoxFor(m => m.Param_crd_lon_fin, new { @name = @Model.Param_crd_lon_fin, @class = "form-control text-right text-uppercase", @maxlength = "20" })
+                </div>
+            </div>
+
+            <!-- FILA 4-->
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label class="text-uppercase font-weight-semibold">Macroubicación:</label>
+                    @Html.DropDownListFor(m => m.Param_Mac, (IEnumerable<SelectListItem>)Model.AllMacroubicacionList, new { @class = "form-control form-control text-uppercase select2" })
+                </div>
+            </div>
+        </div>
+    </div>
+</fieldset>
+
+<fieldset>
+    <legend class="font-weight-semibold text-uppercase font-size-sm">
+        <i class="icon-clipboard6 mr-2"></i>
+        Dato Adicional
+        <a class="float-right text-default" data-toggle="collapse" data-target="#demo2">
+            <i class="icon-circle-down2"></i>
+        </a>
+    </legend>
+
+    <div class="collapse show" id="demo2">
+        <div class="form-group">
+            @Html.TextAreaFor(m => m.Param_obs, new { @rows = "4", @cols = "5", @class = "form-control text-uppercase", @placeholder = "Escriba su mensaje acá...", @MaxLength = "150" })
+            <p class=" text-muted text-right">(máximo 500 carácteres)</p>
+        </div>
+
+    </div>
+</fieldset>
+
+<fieldset>
+    <legend class="font-weight-semibold text-uppercase font-size-sm">
+        <i class="icon-camera mr-2"></i>
+        Imagenes
+        <a class="float-right text-default" data-toggle="collapse" data-target="#demo3">
+            <i class="icon-circle-down2"></i>
+        </a>
+    </legend>
+
+    <div class="collapse show" id="demo3">
+        <div class="form-group">
+            <!-- Scrollable datatable -->
+            <div class="table-responsive">
+                <table class="table table-xs table-hover" id="table_image_element_detail">
+                    <thead>
+                        <tr>
+                            <th>Nombre Imágen</th>
+                            <th>Extension</th>
+                            <th>Tamaño</th>
+                            <th>Subido Por</th>
+                            <th>Fecha Carga</th>
+                            <th class="text-center">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @if (Model.allImagenesList != null)
+                        {
+                            foreach (BusinessEntity.ElementoImagenBusinessEntity img in Model.allImagenesList)
+                            {
+                                <tr>
+                                    <td class="text-left text-uppercase">@img.ele_img_nom</td>
+                                    <td class="text-left text-uppercase">@img.ele_img_ext</td>
+                                    <td class="text-left text-uppercase">@img.ele_img_siz_txt</td>
+                                    <td class="text-left text-uppercase">@img.ele_img_cre_usr</td>
+                                    <td class="text-center text-uppercase">@(img.ele_img_cre_fec == null ? "" : img.ele_img_cre_fec?.ToString("dd-MM-yyyy HH:mm"))</td>
+                                    <td class="text-right">
+
+                                        @if (img.ele_img_xts)
+                                        {
+                                            <a onclick="fnc_VerElementoImagen('@img.ele_img_pat','@img.ele_img_nom'); return false;" href="#" class="icon-file-eye mr-2" title="Vista Previa"></a>
+                                        }
+                                        else
+                                        {
+                                            <a class="icon-file-eye mr-2 text-muted" title="Archivo no encontrado"></a>
+                                        }
+
+                                        <a onclick="fnc_EliminarElementoImagen('@img.ele_img_tip_ele','@img.ele_img_ele_id','@img.ele_img_id'); return false;" href="#" class="icon-trash text-danger-600 mr-2" title="Eliminar"></a>
+                                    </td>
+                                </tr>
+                            }
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+            <!-- /scrollable datatable -->
+        </div>
+
+    </div>
+</fieldset>
+
+<!-- MODAL -->
+@Html.Partial("_Modal_PreviewImage")

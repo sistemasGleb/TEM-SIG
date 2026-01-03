@@ -1,0 +1,42 @@
+﻿@if ((string)ViewData["mensaje"] != "")
+{
+
+    <div id="modal_login" class="modal fade modal-dialog-centered show" data-backdrop="false" tabindex="-1" style="background: rgba(0,0,0,.5);" aria-modal="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+
+                <div class="modal-body p-2">
+                    @if ((string)ViewData["tipo"] == "ok")
+                    {
+                        <div class="alert alert-success alert-styled-left alert-arrow-left mb-0">
+
+                            <span class="font-weight-semibold text-capitalize">@ViewData["mensaje"].ToString().ToLower()</span>
+                        </div>
+                    }
+                    else if ((string)ViewData["tipo"] == "info")
+                    {
+                        <div class="alert alert-info alert-styled-left alert-arrow-left mb-0">
+                            <span class="font-weight-semibold text-capitalize">@ViewData["mensaje"].ToString().ToLower()</span>
+                        </div>
+                    }
+                    else if ((string)ViewData["tipo"] == "error")
+                    {
+                        <div class="alert alert-danger alert-styled-left alert-arrow-left mb-0">
+                            <span class="font-weight-semibold text-capitalize">@ViewData["mensaje"].ToString().ToLower()</span>
+                        </div>
+                    }
+                </div>
+
+                <div class="modal-footer d-flex justify-content-center align-items-center py-2">
+                    <button type="button" class="btn btn-primary btn-sm" onclick="CloseModalPopup();"><i class="icon-checkmark-circle mr-2"></i> Aceptar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<script>
+    function CloseModalPopup() {
+        $('#modal_login').modal().hide();
+    }
+</script>

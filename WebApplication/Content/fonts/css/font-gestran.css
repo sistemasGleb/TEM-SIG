@@ -1,0 +1,100 @@
+@font-face {
+  font-family: 'font-gestran';
+  src: url('../font/font-gestran.eot?60974425');
+  src: url('../font/font-gestran.eot?60974425#iefix') format('embedded-opentype'),
+       url('../font/font-gestran.woff2?60974425') format('woff2'),
+       url('../font/font-gestran.woff?60974425') format('woff'),
+       url('../font/font-gestran.ttf?60974425') format('truetype'),
+       url('../font/font-gestran.svg?60974425#font-gestran') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+/* Chrome hack: SVG is rendered more smooth in Windozze. 100% magic, uncomment if you need it. */
+/* Note, that will break hinting! In other OS-es font will be not as sharp as it could be */
+/*
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+  @font-face {
+    font-family: 'font-gestran';
+    src: url('../font/font-gestran.svg?60974425#font-gestran') format('svg');
+  }
+}
+*/
+ 
+ [class^="gt-"]:before, [class*=" gt-"]:before {
+  font-family: "font-gestran";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+ 
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+ 
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+ 
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+ 
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+ 
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+ 
+  /* Font smoothing. That was taken from TWBS */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+ 
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+}
+ 
+.gt-icon:before { content: '\e800'; } /* '' */
+.gt-informe-ejecutivo:before { content: '\e801'; } /* '' */
+.gt-inicio:before { content: '\e802'; } /* '' */
+.gt-marketing:before { content: '\e803'; } /* '' */
+.gt-perfil-producto:before { content: '\e804'; } /* '' */
+.gt-productividad-eficiencia:before { content: '\e805'; } /* '' */
+.gt-producto:before { content: '\e806'; } /* '' */
+.gt-proyeccion:before { content: '\e807'; } /* '' */
+.gt-ranking-operador:before { content: '\e808'; } /* '' */
+.gt-ranking-sucursal:before { content: '\e809'; } /* '' */
+.gt-segmento:before { content: '\e80a'; } /* '' */
+.gt-seguimiento:before { content: '\e80b'; } /* '' */
+.gt-sin-icono:before { content: '\e80c'; } /* '' */
+.gt-tipotx:before { content: '\e80d'; } /* '' */
+.gt-xcanal:before { content: '\e80e'; } /* '' */
+.gt-af:before { content: '\e80f'; } /* '' */
+.gt-analisis-multicanal:before { content: '\e810'; } /* '' */
+.gt-bigdatamart:before { content: '\e811'; } /* '' */
+.gt-capacidad-utilzada:before { content: '\e812'; } /* '' */
+.gt-cliente:before { content: '\e813'; } /* '' */
+.gt-comportamiento-cliente:before { content: '\e814'; } /* '' */
+.gt-convenio:before { content: '\e815'; } /* '' */
+.gt-cubo:before { content: '\e816'; } /* '' */
+.gt-dashboard:before { content: '\e817'; } /* '' */
+.gt-forense:before { content: '\e818'; } /* '' */
+.gt-grupotx:before { content: '\e819'; } /* '' */
+.gt-franja-horaria:before { content: '\e81a'; } /* '' */
+.gt-cog-alt:before { content: '\e81b'; } /* '' */
+.gt-mant-usu:before { content: '\e81c'; } /* '' */
+.gt-perm-perfil:before { content: '\e81d'; } /* '' */
+.gt-asig-pusuario:before { content: '\e81e'; } /* '' */
+.gt-help-circled:before { content: '\e81f'; } /* '' */
+.gt-key:before { content: '\e820'; } /* '' */
+.gt-cap-nivel:before { content: '\e821'; } /* '' */
+.gt-cap-diaria:before { content: '\e822'; } /* '' */
+.gt-atm:before { content: '\e823'; } /* '' */
+.gt-chart-one:before { content: '\e824'; } /* '' */
+.gt-chart-all:before { content: '\e825'; } /* '' */
+.gt-tdbasica:before { content: '\e836'; } /* '' */
+.gt-money:before { content: '\f0d6'; } /* '' */
+.gt-mant-abco:before { content: '\f0f7'; } /* '' */
+.gt-mant-perfil:before { content: '\f247'; } /* '' */
+.gt-mant-ejecutivo:before { content: '\f27e'; } /* '' */

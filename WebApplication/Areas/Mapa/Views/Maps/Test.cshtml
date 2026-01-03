@@ -1,0 +1,69 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model BusinessEntity.FormModels.FormElementos
+
+<div class="content-wrapper" id="main-modulo">
+    <div class="content">
+
+        @Html.Partial("_Mensaje")
+
+        <!-- Hidden Fields -->
+        <input type="hidden" id="hddn_getMarkersById" value="@Url.Action("ListarJSON_MarkersById","Maps", new {Area = "Mapa"})" />
+        <input type="hidden" id="hddn_getMarkersDetail" value="@Url.Action("ListarJSON_MarkerDetail","Maps", new {Area = "Mapa"})" />
+
+        <!-- CARD -->
+        <div class="card">
+            <div class="card-header header-elements-inline py-2">
+                <h5 class="card-title"><i class="icon-filter3 mr-2"></i>Filtros de Búsqueda</h5>
+            </div>
+            <div class="card-body pb-2">
+                <form id="form_test" class="form-validate" method="post" action="@Url.Action("Test", "Maps")">
+                    @Html.AntiForgeryToken()
+                    @Html.HiddenFor(m => m.allTypeElementList)
+
+                    <!-- FILA 1 -->
+                    <div class="row">
+                        <div class="col-4">
+                            <div class="form-group">
+                                <label>Tipo Elemento:</label>
+                                @Html.DropDownListFor(model => Model.id_tipo_elemento, (IEnumerable<SelectListItem>)Model.allTypeElementList, new { @class = "form-control select2" })
+                            </div>
+                        </div>
+                        <div class="col-8">
+                            <div class="form-group">
+                                <label>Listado Elementos:</label>
+                                @Html.DropDownListFor(model => Model.id_elemento, (IEnumerable<SelectListItem>)Model.elementList, new { @class = "form-control select2" })
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.FILA 1-->
+
+                    <!-- FILA 2 -->
+                    <div class="row" style="text-align:center!important;">
+                        <div style="border: 1px solid rgba(0, 0, 0, .125);text-align:center!important;">
+                            <div id="div_marker-info"></div>
+                        </div>
+                    </div>
+                    <!-- /.FILA 2-->
+                </form>
+            </div>
+        </div>
+        <!-- /.CARD -->
+    </div>
+</div>
+
+@Html.Partial("_Modal_Detalle")
+
+<script src="~/Content/global_assets/js/plugins/ui/moment/moment.min.js"></script>
+<script src="~/Content/global_assets/js/plugins/ui/moment/moment_locales.min.js"></script>
+<script src="~/Content/global_assets/js/plugins/forms/selects/select2.min.js"></script>
+<script src="~/Content/global_assets/js/plugins/forms/validation/validate.min.js"></script>
+<script src="~/Content/global_assets/js/plugins/tables/datatables/datatables.min.js"></script>
+<script src="~/Content/global_assets/js/plugins/tables/datatables/extensions/buttons.min.js"></script>
+<script src="~/Content/global_assets/js/plugins/tables/datatables/extensions/fixed_header.min.js"></script>
+<script src="~/Content/global_assets/js/plugins/tables/datatables/extensions/responsive.min.js"></script>
+<script src="~/Content/global_assets/js/pages/mapa/test.js?v=@ViewContext.Controller.GetType().Assembly.GetName().Version"></script>

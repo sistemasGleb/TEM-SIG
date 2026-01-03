@@ -1,0 +1,105 @@
+﻿
+@{
+    ViewBag.Title = "Administración de Cargos";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@model BusinessEntity.FormModels.FormCargos
+
+<div class="content-wrapper">
+    <div class="content">
+
+        @Html.Partial("_Mensaje")
+
+        <div class="card mb-0">
+            <div class="card-header header-elements-inline" style="border-bottom: 1px solid rgba(0, 0, 0, .125)">
+                <h6 class="card-title">
+                    <i class="icon-pencil7 mr-2"></i>Mantenedor De Cargos
+                </h6>
+                <div class="header-elements">
+                    <div class="list-icons">
+                        <a class="list-icons-item" data-action="reload"></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-body py-0">
+                <input type="hidden" id="cargo_agregar" value="@Url.Action("Create", "Cargo",new {Area ="Configuracion" } )" />
+                <input type="hidden" id="cargo_eliminar" value="@Url.Action("Delete", "Cargo",new {Area ="Configuracion" } )" />
+                <input type="hidden" id="hddn_cargo_validar" value="@Url.Action("JSON_ValidIsAsigned", "Cargo",new {Area ="Configuracion" } )" />
+
+                <div class="table-responsive table-condensed font-size-xs">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Descripción</th>
+                                <th>Vigencia</th>
+                                <th>Creado Por</th>
+                                <th>Creado El</th>
+                                <th>Modificado Por</th>
+                                <th>Modificado El</th>
+                                <th>Opciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model.listCargos != null)
+                            {
+                                foreach (var cgo in Model.listCargos)
+                                {
+                                    <tr>
+                                        <td class="text-left text-uppercase">@cgo.car_nom</td>
+                                        <td  class="text-left text-uppercase">@cgo.car_des</td>
+
+                                        @if (!cgo.car_vig)
+                                        {
+                                            <td class="text-center"><span class="list-icons-item text-danger-600"><i class="icon-close2"></i></span></td>
+                                        }
+                                        else
+                                        {
+                                            <td class="text-center"><span class="list-icons-item text-success-600"><i class="icon-checkmark-circle2"></i></span></td>
+                                        }
+
+                                        <td class="text-left text-uppercase">@cgo.car_cre_usr</td>
+                                        <td class="text-center text-uppercase">@cgo.car_cre_fec.ToString("dd-MM-yyyy HH:mm")</td>
+                                        <td class="text-left text-uppercase">@cgo.car_mod_usr</td>
+                                        <td class="text-center text-uppercase">@(cgo.car_mod_fec== null?"": cgo.car_mod_fec?.ToString("dd-MM-yyyy HH:mm"))</td>
+                                        <td class="text-center">
+
+                                            @if (cgo.car_mod)
+                                            {
+                                                @Html.ActionLink(" ", "Edit", "Cargo", new { id = @cgo.car_cod }, new { @class = "icon-pencil mr-1", @title = "Editar" })
+                                            }
+                                            else
+                                            {
+                                                <span class="list-icons-item text-muted" title="No se puede editar este registro."><i class="icon-pencil mr-1"></i></span>
+                                            }
+
+                                            @if (cgo.car_del)
+                                            {
+                                                <a onclick="fncEliminarCargo('@cgo.car_cod','@cgo.car_nom'); return false;" href="#" class="icon-trash text-danger-600" title="Eliminar"></a>
+                                            }
+                                            else
+                                            {
+                                                <span class="list-icons-item text-muted" title="No se puede eliminar este registro."><i class="icon-trash mr-1"></i></span>
+                                            }
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/Content/global_assets/js/plugins/tables/datatables/datatables.min.js"></script>
+    <script src="~/Content/global_assets/js/plugins/tables/datatables/extensions/buttons.min.js"></script>
+    <script src="~/Content/global_assets/js/plugins/notifications/sweet_alert.min.js"></script>
+    <script src="~/Content/global_assets/js/plugins/notifications/bootbox.min.js"></script>
+    <script src="~/Content/global_assets/js/pages/configuracion/cargo/listar.js?v=@ViewContext.Controller.GetType().Assembly.GetName().Version"></script>
+}

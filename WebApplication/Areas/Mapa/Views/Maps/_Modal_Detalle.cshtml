@@ -1,0 +1,125 @@
+﻿<!-- Disabled backdrop -->
+<div class="modal fade" id="staticBackdrop" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel">
+    <div class="modal-dialog modal-dialog-scrollable modal-lg">
+        <div class="modal-content">
+            <div class="modal-header pt-2" style="border-bottom: 1px solid #ddd;">
+                <h5 id="title_element" class="modal-title pb-2 text-uppercase"><i class="icon-pushpin mr-2"></i>-</h5>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body py-0">
+
+                <!--- ERROR O INFORMACION-->
+                <div id="modal_detail_warning" class="alert alert-warning alert-styled-left my-1 d-none">
+                    <span class="font-weight-semibold mr-2">Atención!</span><span id="modal_detail_warning_span"></span>
+                </div>
+
+
+                <!-- CARACTERISTICAS  -->
+                <fieldset>
+                    <legend class="font-weight-semibold text-uppercase font-size-sm mb-0 pt-2">
+                        <i class="icon-paste2 mr-2"></i>
+                        Detalle Elemento
+
+                    </legend>
+
+                    <div class="card-body p-1">
+                        <div class="row">
+                            <div class="col-md-6" id="col_left">
+                            </div>
+                            <div class="col-md-6" id="col_right">
+                            </div>
+                        </div>
+                    </div>
+
+                </fieldset>
+
+                <!-- OBSERVACION  -->
+                <fieldset>
+                    <legend class="font-weight-semibold text-uppercase font-size-sm mb-0">
+                        <i class="icon-clipboard6 mr-2"></i>
+                        Datos Adicionales
+                    </legend>
+
+                    <div class="card-body p-1">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-group mb-0">
+                                    <textarea id="text_area_obs" name="text_area_obs" class="form-control row_readonly" rows="2" data-autogrow="false"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </fieldset>
+
+                <!-- HISTORIAL MANTENCION -->
+                <fieldset>
+                    <legend class="font-weight-semibold text-uppercase font-size-sm mb-0">
+                        <i class="icon-history mr-2"></i>
+                        Bitácora De Mantención
+                    </legend>
+
+                    <div class="card-body p-1">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-group mb-0">
+                                    <!-- Basic responsive table -->
+                                    <div class="table-responsive">
+                                        <table class="table table-xs" id="table_maitenance_element">
+                                            <thead>
+                                                <tr class="table-border-double">
+                                                    <th class="font-weight-bold">FECHA MANTENCIÓN</th>
+                                                    <th class="font-weight-bold">TIPO MANTENCIÓN</th>
+                                                    <th class="font-weight-bold">ACTIVIDAD</th>
+                                                    <th class="font-weight-bold">TIPO ELEMENTO</th>
+                                                    <th class="font-weight-bold">ELEMENTO</th>
+                                                    <th class="font-weight-bold">RESPONSABLE</th>
+                                                    <th class="font-weight-bold">CANTIDAD</th>
+                                                    <th class="font-weight-bold">UNIDAD</th>
+                                                    <th class="font-weight-bold">OBSERVACIÓN</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody></tbody>
+                                        </table>
+                                    </div>
+                                    <!-- /basic responsive table -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </fieldset>
+
+                <!-- IMAGENES  -->
+                <fieldset id="field_img" class="d-none">
+                    <legend class="font-weight-semibold text-uppercase font-size-sm mb-0">
+                        <i class="icon-camera mr-2"></i>
+                        Imágenes
+                    </legend>
+                    <div class="card-body p-1">
+                        <div class="row">
+                            <div class="col-12">
+                                <div id="img_elemento" class="form-group mb-0"></div>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+            <div class="modal-footer" style="border-top: 1px solid #ddd;">
+                <button type="button" class="btn btn-link" data-dismiss="modal">Aceptar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /disabled backdrop -->
+
+<style>
+    .datatable-header {
+        border-bottom: none;
+        padding: 0;
+    }
+
+    .table-xs td, .table-xs th {
+        padding: 0.1rem 1rem;
+    }
+</style>

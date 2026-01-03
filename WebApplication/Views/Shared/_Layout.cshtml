@@ -1,0 +1,107 @@
+﻿@using CrosscuttingUtiles
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title> .:SIG-TEM:.</title>
+
+    <!-- Global stylesheets -->
+    @*<link href="~/Content/assets/css/css.css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">*@
+    <link href="~/Content/assets/css/icons/icomoon/styles.min.css" rel="stylesheet" type="text/css">
+
+    <link href="~/Content/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="~/Content/assets/css/bootstrap_limitless.min.css" rel="stylesheet" type="text/css">
+    <link href="~/Content/assets/css/layout.min.css" rel="stylesheet" type="text/css">
+    <link href="~/Content/assets/css/components.min.css" rel="stylesheet" type="text/css">
+    <link href="~/Content/assets/css/colors.min.css" rel="stylesheet" type="text/css">
+    <link href="~/Content/assets/css/loading.css" rel="stylesheet" />
+    <link href="~/Content/assets/css/sig-tem.css" rel="stylesheet" type="text/css">
+    <!-- /global stylesheets -->
+    <!-- Core JS files -->
+    <script src="~/Content/global_assets/js/main/jquery.min.js"></script>
+    <script src="~/Content/global_assets/js/main/bootstrap.bundle.min.js"></script>
+    <!-- /core JS files -->
+    <!-- Theme JS files -->
+    <script src="~/Content/global_assets/js/plugins/loaders/blockui.min.js"></script>
+    <script src="~/Content/global_assets/js/plugins/ui/slinky.min.js"></script>
+    @*<script src="~/Content/global_assets/js/plugins/ui/fab.min.js"></script>*@
+    <script src="~/Content/global_assets/js/plugins/ui/sticky.min.js"></script>
+    <script src="~/Content/global_assets/js/app.js"></script>
+    <!-- /theme JS files -->
+</head>
+<body>
+    <!--=======================Inicio cargador==================================================-->
+    <div id="cargando" class="page-loader" style="display:none;">
+        <div class="loader"></div>
+    </div>
+    <!--=======================Inicio cargador==================================================-->
+    <!-- Main navbar-->
+    <div class="navbar navbar-expand-md navbar-white">
+        <div class="navbar-brand wmin-0 mr-5 bg-white">
+            <a asp-area="" asp-controller="home" asp-action="index" class="d-inline-block">
+                <img src="~/Content/img/logos/logo_company.jpg" style="height: 55px; margin-top: -15px; margin-bottom: -15px; background-color: rgba(255, 255, 255, .9);" alt="">
+            </a>
+        </div>
+
+        <div class="d-md-none">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-mobile">
+                <i class="icon-user"></i>
+            </button>
+        </div>
+
+        <div class="collapse navbar-collapse" id="navbar-mobile">
+            <span class="mx-auto font-weight-semibold font-size-lg text-center">@*SIG TEM*@</span>
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item dropdown dropdown-user">
+                    <a href="#" class="navbar-nav-link d-flex align-items-center dropdown-toggle" data-toggle="dropdown">
+                        <img src="@Url.Action("UserImage", "Image" ,new {Area ="", id=@User.Identity.Name})" class="rounded-circle mr-2" height="34" alt="">
+                        <span class="text-capitalize">@Helpers.GetUserNameAndRole()</span>
+                    </a>
+
+                    <div class="dropdown-menu dropdown-menu-right">
+                        @*<a asp-area="" asp-controller="miperfil" asp-action="ver" class="dropdown-item"><i class="icon-user-plus"></i> Mi Perfil</a>*@
+                        <a href="#" class="dropdown-item"><i class="icon-comment-discussion"></i> Mensajes <span class="badge badge-pill bg-blue ml-auto">0</span></a>
+                        <div class="dropdown-divider"></div>
+                        @*<a href="#" class="dropdown-item"><i class="icon-cog5"></i> Opciones de Cuenta</a>*@
+                        <a href="@Url.Action("LogOff", "Account",new {Area ="" })" id="btn_logout" class="dropdown-item"><i class="icon-switch2"></i> Salir</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="navbar navbar-expand-md navbar-light navbar-light-border-top-color">
+        <div class="text-left d-md-none w-100">
+            <button type="button" class="navbar-toggler dropdown-toggle" data-toggle="collapse" data-target="#navbar-navigation">
+                <i class="icon-menu3 mr-2"></i>
+                Menú
+            </button>
+        </div>
+
+        <div class="navbar-collapse collapse" id="navbar-navigation">
+
+            <!-- MENU OPCIONES -->
+            @{ Html.RenderAction("MenuOpciones", "Menu", new { Area = "" }); }
+            <!-- /.MENU OPCIONES -->
+
+        </div>
+    </div>
+    <div class="page-content pt-0">
+        @RenderBody()
+    </div>
+    @RenderSection("Scripts", required: false)
+
+    <!-- Footer -->
+    @*<div class="navbar navbar-expand-lg navbar-light" style="border-top: 1px solid rgba(0, 0, 0, .125)">
+            <div class="navbar-collapse collapse" id="navbar-footer">
+                <span class="navbar-text">
+                    &copy; @DateTime.Now.Year SIG - TEM. Todos los derechos reservados
+                </span>
+            </div>
+        </div>*@
+    <!-- /footer -->
+</body>
+</html>
+

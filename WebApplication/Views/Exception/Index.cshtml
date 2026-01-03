@@ -1,0 +1,71 @@
+﻿
+@model BusinessEntity.FormModels.FormException
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="shortcut icon" href="~/favicon.ico">
+    <title> .:SIG-TEM | No Encontrado :.</title>
+
+    <!-- Global stylesheets -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
+    <link href="~/Content/assets/css/icons/icomoon/styles.min.css" rel="stylesheet" type="text/css">
+    <link href="~/Content/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="~/Content/assets/css/bootstrap_limitless.min.css" rel="stylesheet" type="text/css">
+    <link href="~/Content/assets/css/layout.min.css" rel="stylesheet" type="text/css">
+    <link href="~/Content/assets/css/components.min.css" rel="stylesheet" type="text/css">
+    <link href="~/Content/assets/css/colors.min.css" rel="stylesheet" type="text/css">
+    <!-- /global stylesheets -->
+    <!-- Core JS files -->
+    <script src="~/Content/global_assets/js/main/jquery.min.js"></script>
+    <script src="~/Content/global_assets/js/main/bootstrap.bundle.min.js"></script>
+    <script src="~/Content/global_assets/js/plugins/loaders/blockui.min.js"></script>
+    <!-- /core JS files -->
+    <!-- Theme JS files -->
+    <script src="~/Content/global_assets/js/app.js"></script>
+    <!-- /theme JS files -->
+
+</head>
+
+<body class="banner">
+
+    <!-- Page content -->
+    <div class="page-content">
+
+        <!-- Main content -->
+        <div class="content-wrapper">
+
+            <!-- Content area -->
+            <div class="content d-flex justify-content-center align-items-center">
+
+                <!-- Container -->
+                <div class="flex-fill">
+
+                    <!-- Error title -->
+                    <div class="text-center mb-3">
+                        <h1 class="error-title">500</h1>
+                        <h5>@Model.inner_message</h5>
+                    </div>
+                    <!-- /error title -->
+
+                </div>
+                <!-- /container -->
+
+            </div>
+            <!-- /content area -->
+
+        </div>
+        <!-- /main content -->
+
+    </div>
+    <!-- /page content -->
+
+</body>
+</html>

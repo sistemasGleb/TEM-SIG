@@ -1,0 +1,84 @@
+﻿
+@{
+    ViewBag.Title = "Administración de Biblioteca";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@model BusinessEntity.FormModels.FormCategoria
+
+<div class="content-wrapper">
+    <div class="content">
+        <partial name="_Mensaje" />
+        <input type="hidden" id="categoria_agregar" value="@Url.Action("Agregar","Categorias",null )" />
+        <input type="hidden" id="hidden_Listar_Docs" value="@Url.Action("Listar", "Documentos", new {Area = "Archivos"})" />
+
+        <div class="card mb-0">
+            <div class="card-header header-elements-inline" style="border-bottom: 1px solid rgba(0, 0, 0, .125)">
+                <h6 class="card-title">
+                    <i class="icon-list mr-2"></i>Mantenedor De Bibliotecas
+                </h6>
+                <div class="header-elements">
+                </div>
+            </div>
+
+            <div class="card-body py-0">
+                @Html.Partial("_Mensaje")
+
+                <div class="table-responsive table-condensed font-size-xs">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Código</th>
+                                <th>Nombre Biblioteca</th>
+                                <th>Creado Por</th>
+                                <th>Creado El</th>
+                                <th>Modificado Por</th>
+                                <th>Modificado El</th>
+                                <th>Estado</th>
+                                <th>Opciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model.allCategoryList != null)
+                            {
+                                foreach (var categoria in Model.allCategoryList)
+                                {
+                                    <tr>
+                                        <td class="text-left text-uppercase">@categoria.doc_cat_cod</td>
+                                        <td class="text-left text-uppercase">@categoria.doc_cat_nom</td>
+                                        <td class="text-left text-uppercase">@categoria.doc_cat_cre_usr</td>
+                                        <td class="text-center text-uppercase">@(categoria.doc_cat_cre_fec==null ? "": categoria.doc_cat_cre_fec?.ToString("dd-MM-yyyy HH:mm"))</td>
+                                        <td class="text-left text-uppercase">@categoria.doc_cat_mod_usr</td>
+                                        <td class="text-center text-uppercase">@(categoria.doc_cat_mod_fec== null ? "": categoria.doc_cat_mod_fec?.ToString("dd-MM-yyyy HH:mm")) </td>
+                                        <td class="text-center">
+                                            @if (@categoria.doc_cat_est)
+                                            {
+                                                <i class="icon-unlocked list-icons-item text-success-600" title="Categoría Activa"></i>
+                                            }
+                                            else
+                                            {
+                                                <i class="icon-lock4 list-icons-item text-danger-600" title="Categoría Inactiva"></i>
+                                            }
+                                        </td>
+                                        <td class="text-center">
+                                            @Html.ActionLink(" ", "Editar", "Categorias", new { Area = "Configuracion", id = @categoria.doc_cat_cod }, new { @class = "icon-pencil7 mr-1", @title = "Editar" })
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+
+    <script src="~/Content/global_assets/js/plugins/tables/datatables/datatables.min.js"></script>
+    <script src="~/Content/global_assets/js/plugins/tables/datatables/extensions/buttons.min.js"></script>
+    <script src="~/Content/global_assets/js/plugins/notifications/bootbox.min.js"></script>
+    <script src="~/Content/global_assets/js/pages/configuracion/categorias/listar.js?v=@ViewContext.Controller.GetType().Assembly.GetName().Version"></script>
+}

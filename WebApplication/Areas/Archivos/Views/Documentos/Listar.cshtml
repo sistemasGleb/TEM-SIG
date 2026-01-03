@@ -1,0 +1,85 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="content-wrapper">
+
+    <!-- Content area -->
+    <div class="content">
+        <!-- Marketing campaigns -->
+
+        <div class="card mb-0">
+            <div class="card-header header-elements-inline" style="border-bottom: 1px solid rgba(0, 0, 0, .125)">
+                <h6 class="card-title">
+                    <i class="icon-books mr-2"></i>Documentos -  Repositorio
+                </h6>
+            </div>
+
+            <div class="card-body pt-3">
+                <input type="hidden" id="listar_documentos" value="@Url.Action("ListarJSONDocumentos", "Documentos", new {Area = "Archivos"})" />
+                <input type="hidden" id="maestro_categorias" value="@Url.Action("Listar", "Categorias", new {Area = "Configuracion"})" />
+                <input type="hidden" id="extenciones_carga" value="@ViewData["Formatos"]" />
+                <input type="hidden" id="hiddenEliminarArchivo" value="@Url.Action("DeleteFilesSync", "Documentos", new {Area = "Archivos"})" />
+                <input type="hidden" id="hiddenDownload" value="@Url.Action("DownloadAttachment", "Documentos", new {Area = "Archivos"})" />
+                <input type="hidden" id="hiddenUpload" value="@Url.Action("Subir", "Documentos", new {Area = "Archivos"})" />
+
+                <div id="card_PortabilidadDocsAlert" class="alert alert-danger alert-styled-left alert-dismissible d-none">
+                    <button type="button" class="close" data-dismiss="alert"><span>×</span></button>
+                    <span id="card_PortabilidadDocsMessage" class="font-weight-semibold"></span>
+                </div>
+                <!-- table-responsive -->
+                <div class="table-responsive d-none" id="table_Responsive">
+                    <table id="table_JsonDocumentos" class="table text-nowrap table-fit">
+                        <thead>
+                            <tr>
+                                <th style="visibility: hidden">tipo</th>
+                                <th style="width: 50px">Fecha</th>
+                                <th style="width: 300px;">Nombre</th>
+                                <th>Descripción</th>
+                                <th style="width: 200px;">Modificado Por</th>
+                                <th class="text-center" style="width: 20px;"><i class="icon-arrow-down12"></i></th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+                <!-- /table-responsive -->
+            </div>
+        </div>
+        <!-- /marketing campaigns -->
+    </div>
+    <!-- /content area -->
+</div>
+
+
+
+<style>
+    .datatable-header {
+        padding: 0;
+    }
+
+    .file-preview-thumbnails {
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+        position: relative;
+        overflow: auto;
+    }
+
+    .table-active, .table-active > td, .table-active > th {
+        background-color: rgba(0,0,0,.045);
+    }
+</style>
+
+
+<script src="~/Content/global_assets/js/plugins/forms/styling/uniform.min.js"></script>
+<script src="~/Content/global_assets/js/plugins/ui/moment/moment.min.js"></script>
+<script src="~/Content/global_assets/js/plugins/tables/datatables/datatables.min.js"></script>
+<script src="~/Content/global_assets/js/plugins/tables/datatables/extensions/buttons.min.js"></script>
+<script src="~/Content/global_assets/js/plugins/notifications/sweet_alert.min.js"></script>
+<script src="~/Content/global_assets/js/pages/archivos/documentos/listar.js?v=@ViewContext.Controller.GetType().Assembly.GetName().Version"></script>
+<script src="~/Content/global_assets/js/pages/archivos/documentos/eliminar.js?v=@ViewContext.Controller.GetType().Assembly.GetName().Version"></script>
+

@@ -1,0 +1,70 @@
+﻿@model BusinessEntity.FormModels.FormPlanDeMantencion.PlanReporte
+
+@if ((bool?)Model.status==false)
+{ 
+<script>
+        // A $( document ).ready() block.
+        $(document).ready(function () {
+
+            let swalInit = swal.mixin({
+                buttonsStyling: false,
+                confirmButtonClass: 'btn btn-primary',
+                cancelButtonClass: 'btn btn-light'
+            });
+
+            swalInit.fire({
+                title: 'Reporte Mantenciones.',
+                html: 'ERROR : ' + '@Model.message',
+                type: 'error',
+                showCancelButton: false,
+                confirmButtonText: '<i class="icon-checkmark2 mr-1"></i>Aceptar',
+                confirmButtonClass: 'btn btn-primary',
+                buttonsStyling: false
+            });
+        });
+</script>
+}
+
+<div class="col-12">
+    <!-- Basic responsive table -->
+    <div class="table-responsive">
+        <table class="table table-xs" id="tbl_plan_conservacion_ingreso">
+            <thead>
+                <tr>
+                    <th>Tipo Mantención</th>
+                    <th>Actividad</th>
+                    <th>Tipo Elemento</th>
+                    <th>Elemento</th>
+                    <th>Fecha Mantención</th>
+                    <th>Responsable</th>
+                    <th>Cantidad</th>
+                    <th>Unidad</th>
+                    <th>Observación</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.AllPlanIngresoList != null)
+                {
+                    if (Model.AllPlanIngresoList.Any())
+                    {
+                        foreach (var item in Model.AllPlanIngresoList)
+                        {
+                            <tr>
+                                <td class="text-left text-uppercase">@item.tra_tip_mant_nom</td>
+                                <td class="text-left text-uppercase">@item.tra_tip_act_nom</td>
+                                <td class="text-left text-uppercase">@item.tra_tip_ele_nom</td>
+                                <td class="text-left text-uppercase">@item.tra_ele_nom</td>
+                                <td class="text-center text-uppercase">@(item.tra_fec_ing != null ? item.tra_fec_ing?.ToString("dd/MM/yyy") : String.Empty)</td>   @*Fecha Mantención*@
+                                <td class="text-left text-uppercase">@item.tra_res_nom</td>
+                                <td class="text-right">@item.tra_can.ToString("#,##0.##")</td>
+                                <td class="text-center text-uppercase">@item.tra_uni_nom</td>
+                                <td class="text-left text-uppercase">@item.tra_obs</td>
+                            </tr>
+                        }
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+    <!-- /basic responsive table -->
+</div>

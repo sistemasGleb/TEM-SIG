@@ -1,0 +1,133 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model BusinessEntity.FormModels.FormReportes
+
+<div class="content-wrapper">
+    <div class="content">
+        <div class="row">
+            <!-- Hiiden fields -->
+            <input type="hidden" id="hddn_get_data" value="@Url.Action("ListarJSON_Reportes","Informes", null,this.Request.Url.Scheme)" />
+            <input type="hidden" id="hddn_get_data_elementos" value="@Url.Action("ListarJSON_Reportes_Filtros","Informes", null,this.Request.Url.Scheme)" />
+            <input type="hidden" id="hddn_get_reporte1" value="@Url.Action("JSON_GenerarReporte1","Informes", null,this.Request.Url.Scheme)" />
+            <input type="hidden" id="hddn_get_reporte2" value="@Url.Action("JSON_GenerarReporte2","Informes", null,this.Request.Url.Scheme)" />
+            <input type="hidden" id="hddn_get_reporte3" value="@Url.Action("JSON_GenerarReporte3","Informes", null,this.Request.Url.Scheme)" />
+
+            <div class="col-12">
+                <!-- Advanced legend -->
+                <div class="card mb-0">
+                    <div class="card-header header-elements-inline" style="border-bottom: 1px solid rgba(0, 0, 0, .125)">
+                        <h6 class="card-title">
+                            <i class="icon-file-spreadsheet2 mr-2"></i>Informes
+                        </h6>
+                    </div>
+
+                    <div class="card-body">
+
+                            <!--- REPORTE 1-->
+                            <fieldset>
+                                <legend class="font-weight-semibold text-uppercase font-size-sm pt-3">
+                                    <i class="icon-file-excel mr-2"></i>
+                                    INFORME - Inventario
+                                    <a class="float-right text-default" data-toggle="collapse" data-target="#demo1">
+                                        <i class="icon-circle-down2"></i>
+                                    </a>
+                                </legend>
+
+                                <div class="collapse show" id="demo1">
+                                    <div class="card-body pt-0">
+                                        <form id="form_informe1" method="post" class="form-validate-informe1">
+                                            <div class="form-group row">
+                                                <label class="col-md-3 col-form-label">Informes:</label>
+                                                <div class="col-md-6">
+                                                    <input asp-for="reportes" type="hidden" />
+                                                    @Html.DropDownListFor(model => Model.filtro_reportes, (IEnumerable<SelectListItem>)Model.allReportList, new { @class = "form-control form-control-sm", @multiple = "multiple" })
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <button id="btn-exportar" type="button" class="btn bg-teal btn-labeled btn-labeled-left btn-sm m-1" onclick="fnc_Exportar_info1();"><b><i class="icon-file-spreadsheet"></i></b>Exportar</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </fieldset>
+
+                            <!--- REPORTE 2-->
+                            <fieldset>
+                                <legend class="font-weight-semibold text-uppercase font-size-sm">
+                                    <i class="icon-file-excel mr-2"></i>
+                                    INFORME - Historial de los Elementos
+                                    <a class="float-right text-default" data-toggle="collapse" data-target="#demo2">
+                                        <i class="icon-circle-down2"></i>
+                                    </a>
+                                </legend>
+
+                                <div class="collapse show" id="demo2">
+                                    <div class="form-group row">
+                                        <div class="card-body pt-0">
+                                            <form id="form_informe2" method="post" class="form-validate-informe2">
+                                            <div class="form-group row">
+                                                <label class="col-md-2 col-form-label text-right">Tramos:</label>
+                                                <div class="col-md-3">
+                                                    <input asp-for="tramos" type="hidden" />
+                                                    @Html.DropDownListFor(model => Model.filtro_tramos, (IEnumerable<SelectListItem>)Model.AllTramoList, new { @class = "form-control form-control-sm", @multiple = "multiple" })
+                                                    @*<select id="filtro_tramos" name="filtro_tramos" asp-items="@Model.AllTramoList" class="form-control form-control-sm" multiple="multiple" data-button-class="btn btn-light btn-sm"></select>*@
+                                                </div>
+                                                <label class="col-md-2 col-form-label text-right">Tipo Elementos:</label>
+                                                <div class="col-md-3">
+                                                    <input asp-for="tipo_elemento" type="hidden"/>
+                                                    <select id="filtro_tipo_elemento" name="filtro_tipo_elemento" asp-items="@Model.AllTipoElementoList" class="form-control form-control-sm" multiple="multiple" data-button-class="btn btn-light btn-sm" disabled="disabled" readonly>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <button id="btn-exportar" type="button" class="btn bg-teal btn-labeled btn-labeled-left btn-sm m-1" onclick="fnc_Exportar_info2();"><b><i class="icon-file-spreadsheet"></i></b>Exportar</button>
+                                                </div>
+                                            </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+
+                            <!--- REPORTE 3-->
+                            <fieldset>
+                                <legend class="font-weight-semibold text-uppercase font-size-sm">
+                                    <i class="icon-file-excel mr-2"></i>
+                                    INFORME - Elementos por Tramo
+                                    <a class="float-right text-default" data-toggle="collapse" data-target="#demo3">
+                                        <i class="icon-circle-down2"></i>
+                                    </a>
+                                </legend>
+
+                                <div class="collapse show" id="demo3">
+                                    <div class="form-group row">
+                                        <div class="card-body pt-0">
+
+
+
+                                            <div class="form-group row">
+                                                <div class=" col-md-12 text-center">
+                                                    <button id="btn-exportar" type="button" class="btn bg-teal btn-labeled btn-labeled-left btn-sm m-1" onclick="fnc_Exportar_info3();"><b><i class="icon-file-spreadsheet"></i></b>Exportar</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+           
+                    </div>
+                </div>
+                <!-- /a legend -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/Content/global_assets/js/plugins/ui/moment/moment.min.js"></script>
+<script src="~/Content/global_assets/js/plugins/forms/selects/bootstrap_multiselect.js"></script>
+<script src="~/Content/global_assets/js/plugins/forms/validation/validate.min.js"></script>
+<script src="~/Content/global_assets/js/plugins/notifications/sweet_alert.min.js"></script>
+<script src="~/Content/global_assets/js/pages/reportes/informes/reportes.js?v=@ViewContext.Controller.GetType().Assembly.GetName().Version"></script>

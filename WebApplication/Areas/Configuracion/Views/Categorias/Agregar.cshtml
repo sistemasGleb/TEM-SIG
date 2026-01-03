@@ -1,0 +1,57 @@
+﻿@{
+    ViewData["Title"] = "Agregar Biblioteca";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model BusinessEntity.CategoriaBusinessEntity
+
+<div class="content-wrapper">
+    <div class="content">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header header-elements-inline">
+                        <h5 class="card-title">Agregar Biblioteca</h5>
+
+                    </div>
+                    <div class="card-body">
+                        @Html.Partial("_Mensaje")
+
+                        <form asp-action="agregar" asp-controller="categorias" method="post" class="form-validate">
+                            <div class="form-group row">
+                                <label class="col-lg-3 col-form-label">Nombre Biblioteca</label>
+                                <div class="col-lg-6">
+                                    @Html.TextBoxFor(model => model.doc_cat_nom, new { @class = "form-control text-uppercase", @placeholder = "Nombre...", @autocomplete = "off", @maxlength = "100" })
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-lg-3 col-form-label">Descripción Biblioteca</label>
+                                <div class="col-lg-6">
+                                    @Html.TextAreaFor(m => m.doc_cat_des, new { @rows = "4", @cols = "5", @class = "form-control text-uppercase", @placeholder = "Escriba su descripción acá...", @autocomplete = "off" })
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-lg-3 col-form-label">Biblioteca Activa</label>
+                                <div class="col-lg-6">
+                                    <div class="form-check form-check-switch form-check-switch-left">
+                                        @Html.CheckBoxFor(m => m.doc_cat_est, new { @class = "form-check-input-switch" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <a type="button" class="btn btn-light mr-3" href="@Url.Action("Listar", "Categorias", new {Area = "Configuracion"})"><i class="icon-previous2 mr-2"></i> Volver</a>
+                                <button type="submit" class="btn btn-primary" style="background-color: #064A98">Guardar <i class="icon-floppy-disk ml-1"></i></button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/Content/global_assets/js/plugins/forms/styling/uniform.min.js"></script>
+<script src="~/Content/global_assets/js/plugins/forms/validation/validate.min.js"></script>
+<script src="~/Content/global_assets/js/plugins/forms/styling/switch.min.js"></script>
+<script src="~/Content/global_assets/js/pages/configuracion/categorias/agregar.js?v=@ViewContext.Controller.GetType().Assembly.GetName().Version"></script>
+

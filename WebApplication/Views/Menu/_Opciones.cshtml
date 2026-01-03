@@ -1,0 +1,55 @@
+﻿@{
+    Layout = null;
+}
+
+@model BusinessEntity.MenuBusinessEntity.MenuUsuario
+
+<ul class="navbar-nav">
+
+    @if (Model.menu_opciones != null)
+    {
+        foreach (BusinessEntity.MenuBusinessEntity.MenuOpciones nivel1 in Model.menu_opciones)
+        {
+            if (nivel1.child.Count == 0)
+            {
+                <li class="nav-item">
+                    <a href="@(nivel1.mum_controller==null? "#":@Url.Action(nivel1.mum_method, nivel1.mum_controller, new { Area = nivel1.mum_area }) )" class="navbar-nav-link">
+                        <i class="@nivel1.mum_icon mr-2"></i>
+                        @nivel1.mum_caption
+                    </a>
+                </li>
+            }
+            else
+            {
+                <li class="nav-item dropdown">
+                    <a href="@(nivel1.mum_controller==null? "#":@Url.Action(nivel1.mum_method, nivel1.mum_controller, new { Area = nivel1.mum_area }) )" class="navbar-nav-link dropdown-toggle" data-toggle="dropdown">
+                        <i class="@nivel1.mum_icon mr-2"></i>
+                        @nivel1.mum_caption
+                    </a>
+
+                    @if (nivel1.child.Count > 0)
+                    {
+                        <div class="dropdown-menu">
+                            @foreach (var nivel2 in nivel1.child)
+                            {
+                                <a href="@Url.Action(nivel2.mum_method, nivel2.mum_controller, new {Area = nivel2.mum_area})" class="navbar-nav-link"><i class="@nivel2.mum_icon mr-2"></i>@nivel2.mum_caption</a>
+
+                            }
+                        </div>
+                    }
+
+                </li>
+            }
+        }
+    }
+    else
+    {
+        <li class="nav-item">
+            <a href="@Url.Action("Index", "Home",new {Area ="" } )" class="navbar-nav-link">
+                <i class="icon-home mr-2"></i>
+                Inicio
+            </a>
+        </li>
+    }
+
+</ul>

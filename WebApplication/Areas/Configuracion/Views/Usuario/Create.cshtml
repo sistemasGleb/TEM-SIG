@@ -1,0 +1,192 @@
+﻿@{
+    ViewData["Title"] = "Agregar Usuario";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@model BusinessEntity.UsuarioBusinessEntity.UsuarioViewModel
+
+<div class="content-wrapper">
+    <div class="content">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header header-elements-inline">
+                        <h5 class="card-title">@ViewData["Title"]</h5>
+
+                    </div>
+                    <div class="card-body">
+                        @Html.Partial("_Mensaje")
+                        <input type="hidden" id="hddn_Valid_User" value="@Url.Action("JSON_ValidUserExists", "Usuario",new {Area ="Configuracion" } )" />
+                        @Html.HiddenFor(m => m.usr_id)
+
+                        <form id="form_login" class="form-validate" method="post" action="Create">
+                            @Html.AntiForgeryToken()
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <fieldset>
+                                        <legend class="font-weight-semibold text-uppercase font-size-sm">
+                                            <i class="icon-reading mr-2"></i>
+                                            Información Personal
+                                            <a class="float-right text-default" data-toggle="collapse" data-target="#demo1">
+                                                <i class="icon-circle-down2"></i>
+                                            </a>
+                                        </legend>
+
+                                        <div class="collapse show" id="demo1">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label>Rut:</label>
+                                                        @Html.TextBoxFor(model => model.usr_rut_com, new { @class = "form-control form-control-sm text-uppercase", @placeholder = "Rut...", @autocomplete = "off", @maxlength = "12" })
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label>Usuario:</label>
+                                                        @Html.TextBoxFor(model => model.usr_lgn, new { @class = "form-control form-control-sm text-uppercase", @placeholder = "Login...", @autocomplete = "off" })
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <label>Cargo:</label>
+                                                    @Html.DropDownListFor(model => Model.usr_car_cod, (IEnumerable<SelectListItem>)Model.listado_cargos, new { @class = "form-control form-control text-uppercase select2" })
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label>Nombre:</label>
+                                                        @Html.TextBoxFor(model => model.usr_nom, new { @class = "form-control form-control text-uppercase", @placeholder = "Nombre...", @autocomplete = "off", @maxlength = "50" })
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label>Apellido Paterno:</label>
+                                                        @Html.TextBoxFor(model => model.usr_ape_pat, new { @class = "form-control form-control text-uppercase", @placeholder = "Apellido Paterno...", @autocomplete = "off", @maxlength = "50" })
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <label>Apellido Materno:</label>
+                                                    @Html.TextBoxFor(model => model.usr_ape_mat, new { @class = "form-control form-control text-uppercase", @placeholder = "Apellido Materno...", @autocomplete = "off", @maxlength = "50" })
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label>Vigente:</label>
+                                                        <div class="form-check form-check-switch form-check-switch-left">
+                                                            @Html.CheckBoxFor(m => m.usr_vig, new { @class = "form-check-input-switch" })
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label>Bloqueado:</label>
+                                                        <div class="form-check form-check-switch form-check-switch-left">
+                                                            @Html.CheckBoxFor(m => m.usr_blq, new { @class = "form-check-input-switch" })
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <legend class="font-weight-semibold text-uppercase font-size-sm">
+                                            <i class="icon-envelop4 mr-2"></i>
+                                            Información De Contacto
+                                            <a class="float-right text-default" data-toggle="collapse" data-target="#demo2">
+                                                <i class="icon-circle-down2"></i>
+                                            </a>
+                                        </legend>
+
+                                        <div class="collapse show" id="demo2">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label>Email:</label>
+                                                        @Html.TextBoxFor(model => model.usr_mail, new { @class = "form-control form-control text-uppercase", @placeholder = "Email...", @autocomplete = "off", @maxlength = "30" })
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label>Teléfono:</label>
+                                                        <div class="input-group">
+                                                            <span class="input-group-prepend">
+                                                                <span class="input-group-text">+56</span>
+                                                            </span>
+                                                            @Html.TextBoxFor(model => model.usr_tel, new { @class = "form-control form-control text-uppercase", @autocomplete = "off" })
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4"></div>
+                                            </div>
+                                        </div>
+
+                                        <legend class="font-weight-semibold text-uppercase font-size-sm">
+                                            <i class="icon-key mr-2"></i>
+                                            Seguridad
+                                            <a class="float-right text-default" data-toggle="collapse" data-target="#demo3">
+                                                <i class="icon-circle-down2"></i>
+                                            </a>
+                                        </legend>
+
+                                        <div class="collapse show" id="demo3">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label>Contraseña (8-12 Caracteres):</label>
+                                                        <div class="form-group form-group-feedback form-group-feedback-right">
+                                                            @Html.TextBoxFor(model => model.usr_psw, new { @class = "form-control form-control", @placeholder = "Contraseña...", @autocomplete = "off", @type = "password" })
+                                                            <div class="form-control-feedback" onclick="fnc_viewPassword();">
+                                                                <i id="txt_icon_pass" class="icon-eye-blocked text-muted"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label>Confirmar Contraseña (8-12 Caracteres):</label>
+                                                        <div class="form-group form-group-feedback form-group-feedback-right">
+                                                            @Html.TextBoxFor(model => model.usr_new_psw, new { @class = "form-control form-control", @placeholder = "Confirmar Contraseña...", @autocomplete = "off", @type = "password" })
+                                                            <div class="form-control-feedback" onclick="fnc_viewConfirmPassword();">
+                                                                <i id="txt_icon_confirmpass" class="icon-eye-blocked text-muted"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </fieldset>
+
+
+                                </div>
+                            </div>
+
+                            <hr />
+                            <div class="text-right">
+                                <a href="@Url.Action("Index","Usuario", null)" class="btn btn-light mr-3"><i class="icon-user-plus mr-2"></i>Volver</a>
+                                <button type="submit" class="btn btn-primary">Guardar <i class="icon-floppy-disk ml-1"></i></button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+
+    <script src="~/Content/global_assets/js/plugins/forms/styling/uniform.min.js"></script>
+    <script src="~/Content/global_assets/js/plugins/forms/validation/validate.min.js"></script>
+    <script src="~/Content/global_assets/js/plugins/forms/styling/switch.min.js"></script>
+    <script src="~/Content/global_assets/js/plugins/forms/selects/select2.min.js"></script>
+    <script src="~/Content/global_assets/js/plugins/rut/rut.min.js"></script>
+    <script src="~/Content/global_assets/js/pages/configuracion/usuarios/agregar.js?v=@ViewContext.Controller.GetType().Assembly.GetName().Version"></script>
+}

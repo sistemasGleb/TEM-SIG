@@ -1,0 +1,103 @@
+﻿
+@{
+    ViewBag.Title = "Subir";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model BusinessEntity.FormModels.FormPlanDeMantencion.PlanFiltros
+<link href="~/Content/assets/css/bootstrap-datepicker.min.css" rel="stylesheet" />
+
+<div class="content-wrapper">
+    <div class="content">
+
+        <div class="row">
+            <div class="col-md-8">
+                <!-- CARD -->
+                <div class="card">
+                    <div class="card-header header-elements-inline py-2">
+                        <h5 class="card-title"><i class="icon-filter3 mr-2"></i>Filtros de Búsqueda</h5>
+                    </div>
+
+                    <div class="card-body pb-2">
+                        <input type="hidden" id="hddn_UploadFile" name="hddn_UploadFile" value="@Url.Action("CargarArchivoJSON", "PlanMantencion", null)" />
+                        <input type="hidden" id="hddn_isExistsPlan" name="hddn_isExistsPlan" value="@Url.Action("JSON_ValidPlanningExists", "PlanMantencion", null)" />
+                        <input type="hidden" id="hddn_AllowedFileExtension" name="hddn_AllowedFileExtension" value="@ViewData["Formatos"]" />
+                        <input type="hidden" id="hddn_nMaxFileSize" value="@Model.maxFileSize" />
+
+                        @Html.Partial("_Mensaje")
+
+                        <form method="post" class="form-validate">
+                            <div class="form-group row">
+                                <label class="col-md-2 col-form-label font-weight-semibold">Plan De Conservación:</label>
+                                <label class="col-md-1 col-form-label text-right">Año</label>
+                                <div class="col-md-2">
+                                    <div class="input-group input-daterange" id="education-range" name="education-range">
+                                        @Html.TextBoxFor(m => m.startDate, new { @class = "form-control form-control-md", @autocomplete = "off" })
+                                    </div>
+                                </div>
+                                <label class="col-md-1 col-form-label text-right">Versión</label>
+                                <div class="col-md-2">
+                                    @Html.TextBoxFor(m => m.version, new { @class = "form-control text-uppercase text-right row_readonly", @disabled = "disabled", @autocomplete = "off", @maxlength = "2"  })
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-md-2 col-form-label font-weight-semibold">Descripción</label>
+                                <div class="col-md-8">
+                                    @Html.TextAreaFor(m => m.observations, new { @rows = "3", @cols = "5", @class = "form-control text-uppercase", @placeholder = "Escriba su descripción acá...", @autocomplete = "off", @maxlength = "500" })
+                                    <p class=" text-muted text-right">(máximo 500 carácteres)</p>
+                                </div>
+                            </div>
+
+                            <!--FORMULARIO -->
+                            <div class="form-group row">
+                                <label class="col-md-2 col-form-label font-weight-semibold">Seleccione <span class="text-nowrap">Archivo :</span></label>
+                                <div class="col-md-8">
+                                    <input type="file" id="file_mot_adj" name="file_mot_adj" value="" class="file-input form-control-sm" data-fouc>
+                                    <span class="form-text text-muted">Tamaño máximo de subida es de @Model.maxFileSizeIso</span>
+                                    <span id="group_file_mot_adj" class="form-text text-muted">
+                                        En este módulo, solo se permiten las extensiones
+
+                                        @if (Model.AllowedFileExtensions != null)
+                                        {
+                                            foreach (var item in Model.AllowedFileExtensions)
+                                            {
+                                                <code>@item.Value</code>
+                                            }
+                                        }
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="text-right">
+                                <button type="submit" class="btn btn-primary" style="background-color: #064A98">Guardar <i class="icon-floppy-disk ml-1"></i></button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <!--/. CARD -->
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .file-preview-thumbnails {
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+        position: relative;
+        overflow: auto;
+    }
+</style>
+
+<script src="~/Content/global_assets/js/plugins/ui/moment/moment.min.js"></script>
+<script src="~/Content/global_assets/js/plugins/pickers/bower_components/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
+<script src="~/Content/global_assets/js/plugins/forms/styling/uniform.min.js"></script>
+<script src="~/Content/global_assets/js/plugins/forms/validation/validate.min.js"></script>
+<script src="~/Content/global_assets/js/plugins/uploaders/fileinput/fileinput.min.js"></script>
+<script src="~/Content/global_assets/js/plugins/uploaders/fileinput/locale/es.js"></script>
+<script src="~/Content/global_assets/js/pages/planmantencion/subir.js?v=@ViewContext.Controller.GetType().Assembly.GetName().Version"></script>
+

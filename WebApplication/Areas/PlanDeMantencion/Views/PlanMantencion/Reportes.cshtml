@@ -1,0 +1,108 @@
+﻿
+@{
+    ViewBag.Title = "Plan De Mantención - Reporte";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model BusinessEntity.FormModels.FormPlanDeMantencion.PlanReporte
+
+
+<div class="content-wrapper">
+    <div class="content">
+        <!-- Hidden Fields -->
+        <input type="hidden" id="hddn_buscar" value="@Url.Action("BuscarByFilter","PlanMantencion", null)" />
+        <input type="hidden" id="hddn_get_reporte_plan" value="@Url.Action("JSON_GenerarReporte","PlanMantencion", null,this.Request.Url.Scheme)" />
+
+        <!-- Advanced legend -->
+        <div class="card">
+            <div class="card-header header-elements-inline">
+                <h5 class="card-title"><i class="icon-clipboard3 mr-2"></i>@ViewBag.Title</h5>
+                <div class="header-elements">
+                    <div class="list-icons">
+                        <a class="list-icons-item" data-action="collapse"></a>
+                        <a class="list-icons-item" data-action="reload"></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-body pb-0">
+
+                @Html.Partial("_Mensaje")
+
+                <form id="form_informe1" method="post" class="form-validate">
+                    <fieldset>
+                        <legend class="font-weight-semibold text-uppercase font-size-sm">
+                            <i class="icon-filter3 mr-2"></i>
+                            Filtros De Búsqueda
+                            <a class="float-right text-default" data-toggle="collapse" data-target="#demo1">
+                                <i class="icon-circle-down2"></i>
+                            </a>
+                        </legend>
+
+                        <div class="collapse show" id="demo1">
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <div class="form-group">
+                                        <label>Tipo Mantención:</label>
+                                        @Html.DropDownListFor(m => m.MaintenanceTypeSelected, (IEnumerable<SelectListItem>)Model.allMaintenanceType, new { @class = "form-control form-control-sm select2 text-uppercase" })
+
+                                    </div>
+                                </div>
+
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label>Fecha Inicial:</label>
+                                        <div class="input-group">
+                                            <span class="input-group-prepend">
+                                                <span class="input-group-text"><i class="icon-calendar3"></i></span>
+                                            </span>
+                                            @Html.TextBoxFor(m => m.startDate, new { @class = "form-control form-control-md daterange-single-ini", @maxlength = "10", @autocomplete = "off" })
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label>Fecha Final:</label>
+                                        <div class="input-group">
+                                            <span class="input-group-prepend">
+                                                <span class="input-group-text"><i class="icon-calendar3"></i></span>
+                                            </span>
+                                            @Html.TextBoxFor(m => m.endDate, new { @class = "form-control form-control-md daterange-single-fin", @maxlength = "10", @autocomplete = "off" })
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3 text-right my-auto">
+                                    <button id="btn-buscar" type="submit" class="btn bg-primary-600 btn-labeled btn-labeled-left btn-sm h-auto"><b><i class="icon-circle-right2 mr-2"></i></b>Buscar</button>
+                                    <button id="btn-exportar_reporte" name="btn-exportar_reporte" type="button" class="btn bg-success-600 btn-labeled btn-labeled-left btn-sm m-1" onclick="fnc_Exportar_plan();"><b><i class="icon-file-spreadsheet"></i></b>Exportar</button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <div id="dvTableReporte" class="form-group row" style="border-top: 1px solid #ddd;">
+                        @Html.Partial("_PartialViewReporteMantenciones")
+                    </div>
+
+                </form>
+            </div>
+        </div>
+        <!-- /a legend -->
+
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/Content/global_assets/js/plugins/ui/moment/moment.min.js"></script>
+    <script src="~/Content/global_assets/js/plugins/pickers/daterangepicker.js"></script>
+    <script src="~/Content/global_assets/js/plugins/forms/selects/select2.min.js"></script>
+    <script src="~/Content/global_assets/js/plugins/forms/validation/validate.min.js"></script>
+    <script src="~/Content/global_assets/js/plugins/tables/datatables/datatables.min.js"></script>
+    <script src="~/Content/global_assets/js/plugins/tables/datatables/extensions/buttons.min.js"></script>
+    <script src="~/Content/global_assets/js/plugins/tables/datatables/extensions/fixed_header.min.js"></script>
+    <script src="~/Content/global_assets/js/plugins/tables/datatables/extensions/responsive.min.js"></script>
+    <script src="~/Content/global_assets/js/plugins/notifications/sweet_alert.min.js"></script>
+    <script src="~/Content/global_assets/js/pages/planmantencion/reportes.js?v=@ViewContext.Controller.GetType().Assembly.GetName().Version"></script>
+}

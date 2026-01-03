@@ -1,0 +1,25 @@
+.table td, .table th {
+    padding: 0.25rem 1.25rem;
+    vertical-align: top;
+    border-top: 1px solid #ddd;
+}
+
+.navbar-white {
+    color: rgb(0, 0, 0);
+    background-color: rgb(255, 255, 255) !important;
+    border-bottom-color: rgba(255,255,255,.1) !important;
+}
+
+.navbar-light-border-top-color {
+    border-top-color: rgba(0, 0, 0, .125) !important; /*#72BF44;*/
+    border-bottom-color: rgba(0, 0, 0, .125) !important;
+}
+
+.content {
+    padding: 1rem 1rem;
+    padding-top: 0 !important;
+}
+
+.row_readonly {
+    background-color: #FFFBE5 !important;
+}

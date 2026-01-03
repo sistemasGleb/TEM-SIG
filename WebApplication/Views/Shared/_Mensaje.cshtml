@@ -1,0 +1,29 @@
+﻿
+@if ((string)ViewData["mensaje"] != "")
+{
+    <div class="row p-2">
+        <div class="col-12">
+            @if ((string)ViewData["tipo"] == "ok")
+            {
+                <div class="alert alert-success alert-styled-left alert-arrow-left alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert"><span>&times;</span></button>
+                    <span class="font-weight-semibold text-capitalize">@ViewData["mensaje"].ToString().ToLower()</span>
+                </div>
+            }
+            else if ((string)ViewData["tipo"] == "info")
+            {
+                <div class="alert alert-info alert-styled-left alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert"><span>&times;</span></button>
+                    <span class="font-weight-semibold text-capitalize">@ViewData["mensaje"].ToString().ToLower()</span>
+                </div>
+            }
+            else if ((string)ViewData["tipo"] == "error")
+            {
+                <div class="alert alert-danger alert-styled-left alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert"><span>&times;</span></button>
+                    <span class="font-weight-semibold text-capitalize">@ViewData["mensaje"].ToString().ToLower()</span>
+                </div>
+            }
+        </div>
+    </div>
+}

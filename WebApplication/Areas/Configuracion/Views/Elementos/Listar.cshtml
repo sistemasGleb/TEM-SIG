@@ -1,0 +1,133 @@
+﻿
+@{
+    ViewBag.Title = "Administración de Elementos";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model BusinessEntity.FormModels.FormElementos
+
+<div class="content-wrapper">
+    <div class="content">
+
+        @Html.Partial("_Mensaje")
+
+        <!-- Hidden Fields -->
+        <input type="hidden" id="hddn_getMarkerHistory" value="@Url.Action("ListarJSON_MarkerHistory","Elementos", new {Area = "Configuracion"})" />
+
+        <!-- CARD -->
+        <div class="card mb-0">
+            <div class="card-header header-elements-inline" style="border-bottom: 1px solid rgba(0, 0, 0, .125)">
+                <h6 class="card-title">
+                    <i class="icon-pushpin mr-2"></i>Mantenedor De Elementos
+                </h6>
+                <div class="header-elements">
+                    <div class="list-icons">
+                        <a href="@Url.Action("Index", "Elementos", new {Area = "Configuracion"})" class="btn btn-light mr-3"><i class="icon-previous2 mr-2"></i>Volver</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-body pt-0">
+
+
+                @if (Model.ElementosDataTable != null)
+                {
+
+                    <table class="table datatable-responsive-control-right" id="example" name="example">
+                        <thead>
+                            <tr>
+                                @for (int y = 0; y < Model.ElementosDataTable.Columns.Count; y++)
+                                {
+                                    var strheaderColumnName = @Model.ElementosDataTable.Columns[y].ColumnName;
+                                    <th class="text-uppercase text-nowrap">@Model.ElementosDataTable.Columns[y].ColumnName</th>
+                                }
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @for (int i = 0; i < Model.ElementosDataTable.Rows.Count; i++)
+                            {
+                                <tr>
+                                    @for (int X = 0; X < Model.ElementosDataTable.Columns.Count; X++)
+                                    {
+                                        var strColumnName = Model.ElementosDataTable.Columns[X].ColumnName;
+
+                                        var validHistory = Model.ElementosDataTable.Rows[i][(Model.ElementosDataTable.Columns.Count - 2)].ToString();
+                                        var val = Model.ElementosDataTable.Rows[i][X].ToString();
+
+                                        if (X == 0)
+                                        {
+                                            <td class="text-left h-auto">
+
+                                                @Html.ActionLink(" ", "Editar", "Elementos", new { id_elemento = @Model.ElementosDataTable.Rows[i][1].ToString(), id_tipo_elemento = @Model.id_tipo_elemento }, new { @class = "icon-pencil7 mr-1", @title = "Editar Elemento" })
+                                              
+                                                @if (validHistory == "SI")
+                                                {
+                                                <button type="button" style="color:orangered;" title="Bitácora De Mantención" class="btn btn-link p-0" onclick="fnc_get_marker_history('@Model.id_tipo_elemento',' @Model.ElementosDataTable.Rows[i][1].ToString()');"><i class="icon-history mr-1"></i></button>
+                                                }
+                                            </td>
+                                        }
+                                        else
+                                        {
+                                            if (strColumnName == "Vigente")
+                                            {
+                                                if (val == "NO")
+                                                {
+                                                    <td class="text-center"><span class="list-icons-item text-danger-600" title="Elemento NO vigente"><i class="icon-close2"></i></span></td>
+                                                }
+                                                else
+                                                {
+                                                    <td class="text-center"><span class="list-icons-item text-success-600" title="Elemento vigente"><i class="icon-checkmark-circle2"></i></span></td>
+                                                }
+                                            }
+                                            else if (strColumnName == "Historial")
+                                            {
+                                                if (val == "SI")
+                                                {
+                                                    <td class="text-center text-nowrap"><button type="button" class="btn btn-link" onclick="fnc_get_marker_history('@Model.id_tipo_elemento','@Model.ElementosDataTable.Rows[i][X].ToString()');"><i class="icon-history mr-1"></i> Ver Historial</button></td>
+                                                }
+                                                else
+                                                {
+                                                    <td class="text-nowrap">@Model.ElementosDataTable.Rows[i][X].ToString()</td>
+                                                }
+
+                                            }
+                                            else
+                                            {
+                                                <td class="text-nowrap">@Model.ElementosDataTable.Rows[i][X].ToString()</td>
+                                            }
+
+
+                                        }
+                                    }
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+                else
+                {
+                    <div class="alert alert-warning alert-styled-left alert-dismissible">
+                        <span class="font-weight-semibold">Warning!</span> Better <a href="#" class="alert-link">Lo sentimos</a>, No se encontraron resultados.
+                    </div>
+                }
+            </div>
+        </div>
+        <!-- /.CARD -->
+
+        <!-- MODAL -->
+        @Html.Partial("_Modal_Historial")
+
+    </div>
+</div>
+
+@section Scripts {
+    <link href="~/Content/assets/css/sig-tem.css" rel="stylesheet" />
+    <script src="~/Content/global_assets/js/plugins/ui/moment/moment.min.js"></script>
+    <script src="~/Content/global_assets/js/plugins/ui/moment/moment_locales.min.js"></script>
+    <script src="~/Content/global_assets/js/plugins/tables/datatables/datatables.min.js"></script>
+    <script src="~/Content/global_assets/js/plugins/tables/datatables/extensions/buttons.min.js"></script>
+    <script src="~/Content/global_assets/js/plugins/tables/datatables/extensions/fixed_header.min.js"></script>
+    <script src="~/Content/global_assets/js/plugins/tables/datatables/extensions/responsive.min.js"></script>
+    <script src="~/Content/global_assets/js/plugins/notifications/bootbox.min.js"></script>
+    <script src="~/Content/global_assets/js/pages/configuracion/elementos/listar.js?v=@ViewContext.Controller.GetType().Assembly.GetName().Version"></script>
+}

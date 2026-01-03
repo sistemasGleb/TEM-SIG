@@ -1,0 +1,70 @@
+﻿@{
+    Layout = null;
+}
+
+<div class="row">
+    <div class="col-12">
+
+        <!-- Title with left icon -->
+        <div class="card mb-0">
+            <div class="card-header bg-secondary text-white py-2" style="border-bottom: 1px solid rgba(0, 0, 0, .125);">
+                <h6 class="card-title font-weight-bold">
+                    <i class="icon-cog52 mr-2"></i>
+                    Configuración
+                </h6>
+            </div>
+            
+            <!-- Select -->
+            <div class="card-body pt-1 pb-0">
+                <div class="form-group row my-1">
+                    <label class="col-lg-5 col-form-label font-weight-semibold">Tipo Mapa:</label>
+                    <div class="col-lg-7">
+                        <select id="map_type" class="form-control-sm  select2" tabindex="-1" aria-hidden="true">
+
+                            <option value="hybrid">hybrid</option>
+                            <option value="satellite" selected="">satellite</option>
+                            <option value="roadmap">roadmap</option>
+                            <option value="terrain">terrain</option>
+
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row my-1">
+                    <label class="col-lg-5 col-form-label font-weight-semibold">Tamaño Icono:</label>
+                    <div class="col-lg-7">
+                        <select id="size_icon" class="form-control-sm  select2" tabindex="-1" aria-hidden="true">
+
+                            <option value="16">16px</option>
+                            <option value="24">24px</option>
+                            <option value="32" selected="">32px</option>
+
+                        </select>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Elementos -->
+            <div class="form-group" style="border-top: 1px solid rgba(0, 0, 0, .125);">
+                <div class="card-header bg-light py-2" style="border-bottom: 1px solid rgba(0, 0, 0, .125);">
+                    <h6 class="card-title font-weight-bold">
+                        <i class="icon-pushpin mr-2"></i>
+                        Elementos
+                    </h6>
+                </div>
+                <div class="card-body py-1 px-1" id="card_tree" style="overflow-x: auto;">
+                    <!-- Scrollable table -->
+
+                    <div class="tree well border-left-blue border-left-lg" id="three_menu"></div>
+                </div>
+            </div>
+
+            <div class="card-footer bg-white d-flex justify-content-between align-items-center" style="border-top: 1px solid rgba(0, 0, 0, .125);">
+                <button type="button" class="btn bg-green" onclick="fnc_actulizar_preferencias();"><i class="icon-floppy-disk mr-1"></i>Guardar</button>
+                 <button type="button" class="btn bg-blue" onclick="fn_reload_map(true);">  <i class="icon-reload-alt mr-1"></i>Actualizar</button>
+            </div>
+
+        </div>
+        <!-- /title with left icon -->
+    </div>
+</div>
+ 

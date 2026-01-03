@@ -1,0 +1,72 @@
+﻿
+@{
+    ViewBag.Title = "Plan De Conservación";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model BusinessEntity.FormModels.FormPlanDeMantencion.PlanDeMantencion
+
+<div class="content-wrapper">
+    <div class="content">
+        <!-- Hidden Fields -->
+        <input type="hidden" id="plan_grilla" value="@Url.Action("Details", "PlanMantencion", null)" />
+
+        <!-- Advanced legend -->
+        <div class="card">
+            <div class="card-header pb-0">
+                <h5 class="card-title"><i class="icon-clippy mr-2"></i>@ViewBag.Title </h5>
+            </div>
+
+            <div class="card-body">
+                @Html.Partial("_Mensaje")
+
+                <form method="post" class="form-validate-plan">
+                    <fieldset>
+                        <legend class="font-weight-semibold text-uppercase font-size-sm">
+                            <i class="icon-filter3 mr-2"></i>
+                            Filtros De Búsqueda
+                            <a class="float-right text-default" data-toggle="collapse" data-target="#demo1">
+                                <i class="icon-circle-down2"></i>
+                            </a>
+                        </legend>
+
+                        <div class="collapse show" id="demo1">
+
+                            <div class="form-group">
+                                <div class=" row">
+                                    <div class="col-3">
+                                        <label class="font-weight-semibold">Plan De Mantención:</label>
+                                        @Html.DropDownListFor(model => Model.PlanningSelected, (IEnumerable<SelectListItem>)Model.AllPlanningList, new { @class = "form-control select2" })
+                                    </div>
+                                    <div class="col-7">
+                                        <label class="font-weight-semibold">Observación:</label>
+                                        @Html.TextAreaFor(m => m.observations, new { @class = "form-control text-uppercase row_readonly", @rows = "1", @readonly = "readonly" })
+                                    </div>
+                                    <div class="col-2 text-right my-auto">
+                                        <button id="btn_buscar_plan" type="submit" class="btn bg-primary-600 btn-labeled btn-labeled-left btn-sm h-auto"><b><i class="icon-circle-right2 mr-2"></i></b>Buscar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <div id="dvUserdetails" class="form-group row">
+                        @Html.Partial("_PartialViewTablaPlan")
+                    </div>
+
+                </form>
+            </div>
+        </div>
+        <!-- /a legend -->
+
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/Content/global_assets/js/plugins/forms/styling/uniform.min.js"></script>
+    <script src="~/Content/global_assets/js/plugins/forms/validation/validate.min.js"></script>
+    <script src="~/Content/global_assets/js/plugins/forms/selects/select2.min.js"></script>
+    <script src="~/Content/global_assets/js/plugins/tables/datatables/datatables.min.js"></script>
+    <script src="~/Content/global_assets/js/plugins/tables/datatables/extensions/responsive.min.js"></script>
+    <script src="~/Content/global_assets/js/pages/planmantencion/listar.js?v=@ViewContext.Controller.GetType().Assembly.GetName().Version"></script>
+}

@@ -1,0 +1,126 @@
+﻿
+@model BusinessEntity.LoginBusinessEntity
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="shortcut icon" href="~/favicon.ico">
+    <title> .:SIG - TEM | Ingreso :.</title>
+
+    <!-- Global stylesheets -->
+    <link href="~/Content/assets/css/css.css" rel="stylesheet" type="text/css">
+    <link href="~/Content/assets/css/icons/icomoon/styles.min.css" rel="stylesheet" type="text/css">
+    <link href="~/Content/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="~/Content/assets/css/bootstrap_limitless.min.css" rel="stylesheet" type="text/css">
+    <link href="~/Content/assets/css/layout.min.css" rel="stylesheet" type="text/css">
+    <link href="~/Content/assets/css/components.min.css" rel="stylesheet" type="text/css">
+    <link href="~/Content/assets/css/colors.min.css" rel="stylesheet" type="text/css">
+    <!-- /global stylesheets -->
+    <!-- Core JS files -->
+    <script src="~/Content/global_assets/js/main/jquery.min.js"></script>
+    <script src="~/Content/global_assets/js/main/bootstrap.bundle.min.js"></script>
+    <!-- /core JS files -->
+    <!-- Core JS pluggin files -->
+    <script src="~/Content/global_assets/js/plugins/loaders/blockui.min.js"></script>
+
+    <!-- /core JS files -->
+    <!-- Theme JS files -->
+
+    <script src="~/Content/global_assets/js/app.js"></script>
+    <!-- /theme JS files -->
+
+</head>
+
+<body class="banner">
+
+    <!-- Page content -->
+    <div class="page-content">
+
+        <!-- Main content -->
+        <div class="content-wrapper">
+
+            <!-- Content area -->
+            <div class="content d-flex justify-content-center align-items-center">
+
+                <!-- Login card -->
+                <div class="card mb-0">
+
+                    <form id="form_login" class="form-validate" method="post" action="#">
+                        @Html.AntiForgeryToken()
+
+                        <div class="card-body">
+                            <div class="text-center mb-3">
+                                <img src="~/Content/img/logos/logo_company.jpg" class="rounded-circle mb-3" height="100" alt="" />
+                                <h5 class="mb-0">¡Inicia sesión en tu cuenta!</h5>
+                                <span class="d-block text-muted"> </span>
+                            </div>
+
+                            <div class="form-group form-group-feedback form-group-feedback-right">
+                                @Html.TextBoxFor(model => model.Usuario, new { @class = "form-control", @placeholder = "Usuario", @autocomplete = "off" })
+                                <div class="form-control-feedback">
+                                    <i class="icon-user text-muted"></i>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group form-group-feedback form-group-feedback-right">
+                                @Html.TextBoxFor(model => model.Password, new { @class = "form-control", @type = "password", @placeholder = "Tu contraseña", @autocomplete = "off" })
+                                <div class="form-control-feedback" onclick="fnc_viewPassword();">
+                                    <i id="txt_icon_pass" class="icon-eye-blocked text-muted"></i>
+                                </div>
+                            </div>
+                            <div class="form-group align-items-center text-center">
+                                <a href="@Url.Action("PasswordRecover","Account")" class="ml-auto">¿Has olvidado la contraseña?</a>
+                            </div>
+
+                            <div class="form-group">
+                            </div>
+                            <button type="submit" class="btn btn-block new_btn-success">Iniciar sesión <i class="icon-circle-right2 ml-2"></i></button>
+                        </div>
+                    </form>
+
+                    <span class="form-text text-center text-muted">@ViewBag.version</span>
+                </div>
+                <!-- /login card -->
+
+            </div>
+            <!-- /content area -->
+
+        </div>
+        <!-- /main content -->
+
+        @Html.Partial("_PartialView_Mensaje")
+
+    </div>
+    <!-- /page content -->
+
+</body>
+</html>
+
+<script src="~/Content/global_assets/js/plugins/forms/validation/validate.min.js"></script>
+<script src="~/Content/global_assets/js/pages/login/login.js?v=@ViewContext.Controller.GetType().Assembly.GetName().Version"></script>
+ 
+
+<style>
+    .new_btn-success {
+        color: #fff;
+        background-color: #6CB541;
+        border: 1px solid #5F9E39;
+    }
+
+    .new_text-title {
+        color: #72BF44;
+    }
+    .banner {
+        height: 100%;
+        background: url('../Content/img/background/2446260998_441ff6659e_b.jpg') center center no-repeat;
+        background-size: cover;
+    }
+
+</style>
